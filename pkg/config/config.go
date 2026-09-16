@@ -420,7 +420,11 @@ func findProjectRoot() (string, error) {
 		}
 		parent := filepath.Dir(dir)
 		if parent == dir {
-			return "", fmt.Errorf("could not find project root (no go.mod); set WUJI_ROOT to your wuji-core checkout (e.g. ~/Dev/Coditary/core/wuji-core)")
+			home, err := os.UserHomeDir()
+			if err != nil {
+				return "", fmt.Errorf("could not find project root (no go.mod); set WUJI_ROOT to your wuji-core checkout (e.g. ~/Dev/Coditary/core/wuji-core)")
+			}
+			return home, nil
 		}
 		dir = parent
 	}

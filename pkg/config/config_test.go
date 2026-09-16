@@ -78,3 +78,25 @@ func TestLoadUsesWujiRootWithoutGoMod(t *testing.T) {
 		t.Fatalf("root=%q want %q", cfg.Root, wujiHome)
 	}
 }
+
+func TestLoadUsesHomeWithoutGoMod(t *testing.T) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		t.Fatal(err)
+	}
+	noGoModDir := t.TempDir()
+	t.Setenv("WUJI_ROOT", "")
+	cwd, _ := os.Getwd()
+	if err := os.Chdir(noGoModDir); err != nil {
+		t.Fatal(err)
+	}
+	defer os.Chdir(cwd)
+
+	cfg, err := config.Load()
+	if err != nil {
+		t.Fatalf("Load: %v", err)
+	}
+	if cfg.Root != home {
+		t.Fatalf("root=%q want %q", cfg.Root, home)
+	}
+}
