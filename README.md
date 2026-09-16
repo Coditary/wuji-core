@@ -30,5 +30,3 @@ make test
 ```bash
 ./bin/wuji-core
 ```
-
-See `AGENTS.md` for architecture details.
