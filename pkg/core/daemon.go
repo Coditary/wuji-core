@@ -6,22 +6,44 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/coditary/wuji-core/pkg/config"
 	"github.com/coditary/wuji-core/pkg/netx"
 )
 
-// ConnectRuntime connects to the core daemon or starts it when needed.
+// ConnectRuntime returns a core Runtime for the CLI.
+// By default the core runs in-process inside the wuji binary (linked wuji-core library).
+// Set WUJI_DAEMON=1 to connect to or auto-start a separate wuji-core daemon instead.
 func ConnectRuntime(ctx context.Context, cfg *config.Config) (Runtime, func(), error) {
-	if os.Getenv("WUJI_EMBEDDED") == "1" {
-		c, err := New(Config{AppConfig: cfg, Lazy: true})
-		if err != nil {
-			return nil, nil, err
-		}
-		return c, func() { _ = c.Close() }, nil
+	if useDaemonMode() {
+		return connectDaemonRuntime(ctx, cfg)
 	}
+	return connectEmbeddedRuntime(cfg)
+}
 
+func useDaemonMode() bool {
+	switch strings.TrimSpace(os.Getenv("WUJI_DAEMON")) {
+	case "1", "true", "yes":
+		return true
+	}
+	switch strings.TrimSpace(os.Getenv("WUJI_EMBEDDED")) {
+	case "0", "false", "no":
+		return true
+	}
+	return false
+}
+
+func connectEmbeddedRuntime(cfg *config.Config) (Runtime, func(), error) {
+	c, err := New(Config{AppConfig: cfg, Lazy: true})
+	if err != nil {
+		return nil, nil, err
+	}
+	return c, func() { _ = c.Close() }, nil
+}
+
+func connectDaemonRuntime(ctx context.Context, cfg *config.Config) (Runtime, func(), error) {
 	root := cfg.Root
 	if root == "" {
 		root = "."
