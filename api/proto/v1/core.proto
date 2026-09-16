@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package wuji.v1;
+
+option go_package = "github.com/coditary/wuji-core/api/proto/v1;wujiv1";
+
+// WujiCore is the central daemon API. Workloads are dispatched via Call using JSON payloads.
+service WujiCore {
+  rpc Call(CallRequest) returns (CallResponse);
+  rpc GenerateTextStream(CallRequest) returns (stream TextStreamChunk);
+  rpc Ping(PingRequest) returns (PingResponse);
+  // Stage local media on the daemon (remote CLI clients).
+  rpc PutFiles(PutFilesRequest) returns (PutFilesResponse);
+  // Fetch generated media from the daemon back to the client.
+  rpc GetFiles(GetFilesRequest) returns (GetFilesResponse);
+}
+
+message CallRequest {
+  string method = 1;
+  bytes payload_json = 2;
+}
+
+message CallResponse {
+  bytes payload_json = 1;
+  string error = 2;
+}
+
+message TextStreamChunk {
+  string delta = 1;
+  bytes payload_json = 2;
+  string error = 3;
+  bool done = 4;
+  string think_delta = 5;
+}
+
+message PingRequest {}
+
+message PingResponse {
+  bool ok = 1;
+  string version = 2;
+}
+
+message FileBlob {
+  string name = 1;
+  bytes data = 2;
+  // When true, data is zstd-compressed.
+  bool zstd = 3;
+}
+
+message PutFilesRequest {
+  string session_id = 1;
+  repeated FileBlob files = 2;
+}
+
+message PutFilesResponse {
+  repeated string paths = 1;
+  // Absolute server path to the session staging directory.
+  string staging_root = 2;
+}
+
+message GetFilesRequest {
+  repeated string paths = 1;
+}
+
+message GetFilesResponse {
+  repeated FileBlob files = 1;
+}

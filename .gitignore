@@ -1,0 +1,9 @@
+bin/
+.cache/
+.wuji/
+
+*.test
+*.out
+.env
+go.work
+go.work.sum

@@ -1,0 +1,844 @@
+syntax = "proto3";
+
+package wuji.v1;
+
+import "core.proto";
+
+option go_package = "github.com/coditary/wuji-core/api/proto/v1;wujiv1";
+
+service DriverRegistry {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
+  rpc Unregister(UnregisterRequest) returns (UnregisterResponse);
+}
+
+service DriverService {
+  rpc GetInfo(GetInfoRequest) returns (GetInfoResponse);
+  rpc GenerateText(GenerateTextRequest) returns (GenerateTextResponse);
+  rpc GenerateTextStream(GenerateTextRequest) returns (stream TextStreamChunk);
+  rpc GenerateImage(GenerateImageRequest) returns (GenerateImageResponse);
+  rpc ImageToImage(ImageToImageRequest) returns (GenerateImageResponse);
+  rpc InpaintImage(InpaintImageRequest) returns (GenerateImageResponse);
+  rpc UpscaleImage(UpscaleImageRequest) returns (GenerateImageResponse);
+  rpc EditImage(EditImageRequest) returns (GenerateImageResponse);
+  rpc ControlNetImage(ControlNetImageRequest) returns (GenerateImageResponse);
+  rpc DepthToImage(DepthToImageRequest) returns (GenerateImageResponse);
+  rpc ImageVariation(ImageVariationRequest) returns (GenerateImageResponse);
+  rpc StyleTransferImage(StyleTransferImageRequest) returns (GenerateImageResponse);
+  rpc SpriteImage(SpriteImageRequest) returns (GenerateImageResponse);
+  rpc GenerateVideo(GenerateVideoRequest) returns (GenerateVideoResponse);
+  rpc ImageToVideo(ImageToVideoRequest) returns (GenerateVideoResponse);
+  rpc InterpolateVideo(InterpolateVideoRequest) returns (GenerateVideoResponse);
+  rpc UpscaleVideo(UpscaleVideoRequest) returns (GenerateVideoResponse);
+  rpc GenerateMusic(GenerateMusicRequest) returns (GenerateAudioResponse);
+  rpc MelodyToMusic(MelodyToMusicRequest) returns (GenerateAudioResponse);
+  rpc GenerateSFX(GenerateSFXRequest) returns (GenerateAudioResponse);
+  rpc GenerateAudioSpeech(GenerateAudioSpeechRequest) returns (GenerateAudioResponse);
+  rpc GenerateMesh(GenerateMeshRequest) returns (GenerateMeshResponse);
+  rpc Video2Audio(Video2AudioRequest) returns (Video2AudioResponse);
+  rpc CreateVoice(CreateVoiceRequest) returns (CloneVoiceResponse);
+  rpc ConvertVoice(ConvertVoiceRequest) returns (CloneVoiceResponse);
+  rpc ListVoiceProfiles(ListVoiceProfilesRequest) returns (ListVoiceProfilesResponse);
+  rpc TrainText(TrainTextRequest) returns (TrainResponse);
+  rpc TrainImage(TrainImageRequest) returns (TrainResponse);
+  rpc TrainVideo(TrainVideoRequest) returns (TrainResponse);
+  rpc TrainAudio(TrainAudioRequest) returns (TrainResponse);
+  rpc TrainMesh(TrainMeshRequest) returns (TrainResponse);
+  rpc TrainVoice(TrainVoiceRequest) returns (TrainResponse);
+  rpc ListDatasets(ListDatasetsRequest) returns (ListDatasetsResponse);
+  rpc CreateDataset(CreateDatasetRequest) returns (DatasetMutationResponse);
+  rpc DeleteDataset(DeleteDatasetRequest) returns (DatasetMutationResponse);
+  rpc IngestDataset(IngestDatasetRequest) returns (IngestDatasetResponse);
+  rpc CreateDatasetVersion(CreateDatasetVersionRequest) returns (DatasetVersionResponse);
+  rpc ListDatasetVersions(ListDatasetVersionsRequest) returns (ListDatasetVersionsResponse);
+  rpc ProduceData(ProduceDataRequest) returns (ProduceDataResponse);
+  rpc RunRAG(RAGRequestMsg) returns (RAGResponseMsg);
+}
+
+message CapabilityFormatSupport {
+  string capability = 1;
+  repeated string formats = 2;
+}
+
+message DriverMetadata {
+  string id = 1;
+  string name = 2;
+  string version = 3;
+  string description = 4;
+  repeated string capabilities = 5;
+  repeated CapabilityFormatSupport format_support = 6;
+  repeated string image_tasks = 7;
+  repeated string video_tasks = 8;
+  repeated string dataset_tasks = 9;
+  repeated string audio_tasks = 10;
+  repeated string voice_tasks = 11;
+  repeated string mesh_tasks = 12;
+  repeated string data_tasks = 13;
+  repeated string rag_tasks = 14;
+}
+
+message RegisterRequest {
+  DriverMetadata metadata = 1;
+  string endpoint = 2;
+}
+
+message RegisterResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message HeartbeatRequest {
+  string driver_id = 1;
+}
+
+message HeartbeatResponse {
+  bool alive = 1;
+}
+
+message UnregisterRequest {
+  string driver_id = 1;
+}
+
+message UnregisterResponse {
+  bool success = 1;
+}
+
+message GetInfoRequest {}
+
+message GetInfoResponse {
+  DriverMetadata metadata = 1;
+}
+
+message LoraAttachment {
+  string path = 1;
+  float weight = 2;
+}
+
+message ChatToolCall {
+  string id = 1;
+  string name = 2;
+  string arguments_json = 3;
+}
+
+message ChatMessage {
+  string role = 1;
+  string content = 2;
+  string name = 3;
+  string tool_call_id = 4;
+  repeated ChatToolCall tool_calls = 5;
+}
+
+message ChatToolDef {
+  string name = 1;
+  string description = 2;
+  string parameters_json = 3;
+}
+
+message GenerateTextRequest {
+  string prompt = 1;
+  int32 max_tokens = 2;
+  float temperature = 3;
+  string model = 4;
+  float top_p = 5;
+  int32 top_k = 6;
+  float min_p = 7;
+  float frequency_penalty = 8;
+  float presence_penalty = 9;
+  float repetition_penalty = 10;
+  repeated string stop_sequences = 11;
+  optional int32 seed = 12;
+  string system_prompt = 13;
+  int32 context_window = 14;
+  repeated LoraAttachment loras = 15;
+  string input_mode = 16;   // prompt, image, video, audio, document
+  string media_path = 17;
+  bool translate = 18;
+  string target_lang = 19;
+  string language = 20;     // source language for --audio or --translate
+  int32 beam_size = 21;     // STT beam size (--audio only)
+  bool word_timestamps = 22;
+  bool vad_enabled = 23;
+  float vad_threshold = 24;
+  repeated ChatMessage messages = 25;
+  repeated ChatToolDef tools = 26;
+  bool stream = 27;
+  string tool_choice = 28; // auto, required, none
+}
+
+message GenerateTextResponse {
+  string text = 1;
+  int32 tokens_used = 2;
+  string finish_reason = 3;
+  repeated ChatToolCall tool_calls = 4;
+}
+
+message GenerateImageRequest {
+  string prompt = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 steps = 4;
+  string negative_prompt = 5;
+  string model = 6;
+  string sampler = 7;
+  float cfg_scale = 8;
+  int32 batch_size = 9;
+  int32 batch_count = 10;
+  optional int32 seed = 11;
+  repeated LoraAttachment loras = 12;
+  repeated ControlNetUnit control_units = 13;
+  string control_mode = 14;
+  string mode = 15;
+}
+
+message ControlNetUnit {
+  string type = 1;
+  string image_path = 2;
+  string preprocessor = 3;
+  float weight = 4;
+  float guidance_start = 5;
+  float guidance_end = 6;
+  float threshold_a = 7;
+  float threshold_b = 8;
+  string model = 9;
+}
+
+message ImageToImageRequest {
+  string prompt = 1;
+  string init_image_path = 2;
+  float denoising_strength = 3;
+  string negative_prompt = 4;
+  string model = 5;
+  int32 width = 6;
+  int32 height = 7;
+  int32 steps = 8;
+  string sampler = 9;
+  float cfg_scale = 10;
+  int32 batch_size = 11;
+  int32 batch_count = 12;
+  optional int32 seed = 13;
+  repeated LoraAttachment loras = 14;
+  repeated ControlNetUnit control_units = 15;
+  string control_mode = 16;
+}
+
+message InpaintImageRequest {
+  string prompt = 1;
+  string init_image_path = 2;
+  string mask_image_path = 3;
+  float denoising_strength = 4;
+  string negative_prompt = 5;
+  string model = 6;
+  int32 width = 7;
+  int32 height = 8;
+  int32 steps = 9;
+  string sampler = 10;
+  float cfg_scale = 11;
+  int32 batch_size = 12;
+  int32 batch_count = 13;
+  optional int32 seed = 14;
+  repeated LoraAttachment loras = 15;
+  repeated ControlNetUnit control_units = 16;
+  string control_mode = 17;
+}
+
+message UpscaleImageRequest {
+  string init_image_path = 1;
+  string model = 2;
+  int32 scale = 3;
+  repeated LoraAttachment loras = 4;
+}
+
+message EditImageRequest {
+  string prompt = 1;
+  string init_image_path = 2;
+  float denoising_strength = 3;
+  string negative_prompt = 4;
+  string model = 5;
+  int32 width = 6;
+  int32 height = 7;
+  int32 steps = 8;
+  string sampler = 9;
+  float cfg_scale = 10;
+  int32 batch_size = 11;
+  int32 batch_count = 12;
+  optional int32 seed = 13;
+  repeated LoraAttachment loras = 14;
+  repeated ControlNetUnit control_units = 15;
+  string control_mode = 16;
+}
+
+message ControlNetImageRequest {
+  string prompt = 1;
+  string control_image_path = 2 [deprecated = true];
+  string control_type = 3 [deprecated = true];
+  string negative_prompt = 4;
+  string model = 5;
+  int32 width = 6;
+  int32 height = 7;
+  int32 steps = 8;
+  string sampler = 9;
+  float cfg_scale = 10;
+  int32 batch_size = 11;
+  int32 batch_count = 12;
+  optional int32 seed = 13;
+  repeated LoraAttachment loras = 14;
+  repeated ControlNetUnit control_units = 15;
+  string control_mode = 16;
+}
+
+message DepthToImageRequest {
+  string prompt = 1;
+  string depth_image_path = 2;
+  string negative_prompt = 3;
+  string model = 4;
+  int32 width = 5;
+  int32 height = 6;
+  int32 steps = 7;
+  string sampler = 8;
+  float cfg_scale = 9;
+  int32 batch_size = 10;
+  int32 batch_count = 11;
+  optional int32 seed = 12;
+  repeated LoraAttachment loras = 13;
+  repeated ControlNetUnit control_units = 14;
+  string control_mode = 15;
+}
+
+message ImageVariationRequest {
+  string init_image_path = 1;
+  float denoising_strength = 2;
+  string model = 3;
+  optional int32 seed = 4;
+  repeated LoraAttachment loras = 5;
+  string negative_prompt = 6;
+  int32 width = 7;
+  int32 height = 8;
+  int32 steps = 9;
+  string sampler = 10;
+  float cfg_scale = 11;
+  int32 batch_size = 12;
+  int32 batch_count = 13;
+  repeated ControlNetUnit control_units = 14;
+  string control_mode = 15;
+}
+
+message StyleTransferImageRequest {
+  string prompt = 1;
+  string style_image_path = 2;
+  float style_weight = 3;
+  string negative_prompt = 4;
+  string model = 5;
+  int32 width = 6;
+  int32 height = 7;
+  int32 steps = 8;
+  string sampler = 9;
+  float cfg_scale = 10;
+  int32 batch_size = 11;
+  int32 batch_count = 12;
+  optional int32 seed = 13;
+  repeated LoraAttachment loras = 14;
+  repeated ControlNetUnit control_units = 15;
+  string control_mode = 16;
+  string mode = 17;
+}
+
+message SpriteImageRequest {
+  string prompt = 1;
+  string init_image_path = 2;
+  int32 frame_width = 3;
+  int32 frame_height = 4;
+  int32 columns = 5;
+  int32 rows = 6;
+  int32 frame_count = 7;
+  string mode = 8;
+  string negative_prompt = 9;
+  string model = 10;
+  int32 steps = 11;
+  string sampler = 12;
+  float cfg_scale = 13;
+  optional int32 seed = 14;
+  repeated LoraAttachment loras = 15;
+  repeated ControlNetUnit control_units = 16;
+  string control_mode = 17;
+  float denoising_strength = 18;
+  string reference_image_path = 19;
+  string style_image_path = 20;
+  float style_weight = 21;
+  string action = 22;
+  string view = 23;
+  int32 directions = 24;
+  bool loop = 25;
+  int32 padding = 26;
+  bool transparent = 27;
+}
+
+message GenerateImageResponse {
+  string path = 1;
+  string format = 2;
+  repeated string paths = 3;
+}
+
+message GenerateVideoRequest {
+  string prompt = 1;
+  float duration = 2;
+  int32 fps = 3;
+  int32 frames = 4;
+  float motion_strength = 5;
+  int32 context_length = 6;
+  string sampler = 7;
+  string scheduler = 8;
+  string camera_control = 9;
+  string negative_prompt = 10;
+  string model = 11;
+  optional int32 seed = 12;
+}
+
+message ImageToVideoRequest {
+  string prompt = 1;
+  string init_image_path = 2;
+  float duration = 3;
+  int32 fps = 4;
+  int32 frames = 5;
+  float motion_strength = 6;
+  int32 context_length = 7;
+  string sampler = 8;
+  string scheduler = 9;
+  string negative_prompt = 10;
+  string model = 11;
+  optional int32 seed = 12;
+}
+
+message InterpolateVideoRequest {
+  string input_video_path = 1;
+  int32 target_fps = 2;
+  string model = 3;
+}
+
+message UpscaleVideoRequest {
+  string input_video_path = 1;
+  int32 scale = 2;
+  string model = 3;
+}
+
+message GenerateVideoResponse {
+  string path = 1;
+  float duration = 2;
+  int32 frames = 3;
+  int32 fps = 4;
+}
+
+message GenerateMusicRequest {
+  string prompt = 1;
+  float duration = 2;
+  string lyrics = 3;
+  string negative_prompt = 4;
+  string model = 5;
+  float overlap = 6;
+  float temperature = 7;
+  float cfg_scale = 8;
+  float top_p = 9;
+  int32 top_k = 10;
+  int32 sample_rate = 11;
+  optional int32 seed = 12;
+}
+
+message MelodyToMusicRequest {
+  string prompt = 1;
+  float duration = 2;
+  string lyrics = 3;
+  string negative_prompt = 4;
+  string model = 5;
+  float overlap = 6;
+  float temperature = 7;
+  float cfg_scale = 8;
+  float top_p = 9;
+  int32 top_k = 10;
+  int32 sample_rate = 11;
+  optional int32 seed = 12;
+  string reference_path = 13;
+}
+
+message GenerateSFXRequest {
+  string prompt = 1;
+  float duration = 2;
+  string negative_prompt = 3;
+  string model = 4;
+  float temperature = 5;
+  float cfg_scale = 6;
+  float top_p = 7;
+  int32 top_k = 8;
+  int32 sample_rate = 9;
+  optional int32 seed = 10;
+}
+
+message GenerateAudioSpeechRequest {
+  string prompt = 1;
+  float duration = 2;
+  string model = 3;
+  int32 sample_rate = 4;
+  optional int32 seed = 5;
+  string voice = 6;
+  string language = 7;
+  float speed = 8;
+  int32 pitch = 9;
+  string emotion = 10;
+  string style = 11;
+  float energy = 12;
+}
+
+message GenerateAudioResponse {
+  string path = 1;
+  float duration = 2;
+  int32 sample_rate = 3;
+  string format = 4;
+}
+
+message GenerateMeshRequest {
+  string task = 1;
+  string prompt = 2;
+  string format = 3;
+  string model = 4;
+  optional int32 seed = 5;
+  int32 target_tris = 6;
+  string init_mesh_path = 7;
+  string high_mesh_path = 8;
+  string init_image_path = 9;
+  repeated string init_image_paths = 10;
+  string init_video_path = 11;
+  string init_depth_path = 12;
+  string init_pointcloud_path = 13;
+  string init_splat_path = 14;
+  string mask_path = 15;
+  string style_image_path = 16;
+  string texture_image_path = 17;
+  string animation_path = 18;
+  string mode = 19;
+  float scale = 20;
+  string representation = 21;
+}
+
+message GenerateMeshResponse {
+  string path = 1;
+  string format = 2;
+  string task = 3;
+  string mode = 4;
+  string representation = 5;
+}
+
+message Video2AudioRequest {
+  string video_path = 1;
+}
+
+message Video2AudioResponse {
+  string audio_path = 1;
+  bool temporary = 2;
+}
+
+message CreateVoiceRequest {
+  string sample_path = 1;
+  string name = 2;
+  string target_model = 3;
+  bool denoise = 4;
+  float denoise_strength = 5;
+}
+
+message ConvertVoiceRequest {
+  string sample_path = 1;
+  string name = 2;
+  string target_model = 3;
+  string source_path = 4;
+  int32 pitch_shift = 5;
+  float index_rate = 6;
+  float protect = 7;
+  string vocoder = 8;
+  bool denoise = 9;
+  float denoise_strength = 10;
+  int32 chunk_size = 11;
+  float crossfade = 12;
+}
+
+message CloneVoiceResponse {
+  string voice_id = 1;
+  string name = 2;
+  string output_path = 3;
+}
+
+message ListVoiceProfilesRequest {}
+
+message VoiceSpeechCapabilities {
+  repeated string languages = 1;
+  repeated string emotions = 2;
+  repeated string styles = 3;
+  float speed_min = 4;
+  float speed_max = 5;
+  int32 pitch_min = 6;
+  int32 pitch_max = 7;
+  bool energy_supported = 8;
+  bool languages_supported = 9;
+  bool emotions_supported = 10;
+  bool styles_supported = 11;
+}
+
+message VoiceProfile {
+  string name = 1;
+  string voice_id = 2;
+  string description = 3;
+  string source = 4;
+  VoiceSpeechCapabilities speech = 5;
+}
+
+message ListVoiceProfilesResponse {
+  repeated VoiceProfile profiles = 1;
+}
+
+message TrainTextRequest {
+  string name = 1;
+  string dataset_id = 2;
+  string base_model = 3;
+  string output_path = 4;
+  int32 epochs = 5;
+  float learning_rate = 6;
+  int32 lora_rank = 7;
+  int32 context_length = 8;
+  int32 batch_size = 9;
+  string method = 10;
+  int32 lora_alpha = 11;
+  int32 gradient_accumulation_steps = 12;
+  int32 warmup_steps = 13;
+  int32 save_every_epoch = 14;
+  int32 seed = 15;
+}
+
+message TrainImageRequest {
+  string name = 1;
+  string dataset_id = 2;
+  string base_model = 3;
+  string output_path = 4;
+  int32 epochs = 5;
+  float learning_rate = 6;
+  int32 lora_rank = 7;
+  int32 width = 8;
+  int32 height = 9;
+  string class_token = 10;
+  string method = 11;
+  string control_type = 12;
+  string token = 13;
+  string mode = 14;
+  int32 lora_alpha = 15;
+  bool prior_preservation = 16;
+  string reg_dataset_id = 17;
+  int32 batch_size = 18;
+  int32 seed = 19;
+}
+
+message TrainVideoRequest {
+  string name = 1;
+  string dataset_id = 2;
+  string base_model = 3;
+  string output_path = 4;
+  int32 epochs = 5;
+  float learning_rate = 6;
+  int32 frames = 7;
+  int32 fps = 8;
+  int32 context_length = 9;
+  string method = 10;
+  int32 lora_rank = 11;
+  int32 batch_size = 12;
+  int32 seed = 13;
+}
+
+message TrainAudioRequest {
+  string name = 1;
+  string dataset_id = 2;
+  string base_model = 3;
+  string output_path = 4;
+  int32 epochs = 5;
+  float learning_rate = 6;
+  int32 sample_rate = 7;
+  string task_type = 8;
+  string method = 9;
+  int32 batch_size = 10;
+  int32 seed = 11;
+}
+
+message TrainMeshRequest {
+  string name = 1;
+  string dataset_id = 2;
+  string base_model = 3;
+  string output_path = 4;
+  int32 epochs = 5;
+  float learning_rate = 6;
+  string format = 7;
+  string method = 8;
+  int32 lora_rank = 9;
+  string mode = 10;
+  int32 seed = 11;
+}
+
+message TrainVoiceRequest {
+  string name = 1;
+  string dataset_id = 2;
+  string output_path = 3;
+  int32 epochs = 4;
+  string sample_path = 5;
+  string pretrained_model = 6;
+  int32 pitch_shift = 7;
+  float index_rate = 8;
+  int32 batch_size = 9;
+  int32 save_every_epoch = 10;
+  string method = 11;
+  int32 seed = 12;
+}
+
+message TrainResponse {
+  string job_id = 1;
+  string status = 2;
+  string capability = 3;
+  string output_path = 4;
+}
+
+message DatasetEntry {
+  string id = 1;
+  string name = 2;
+  string path = 3;
+  int64 size = 4;
+  string latest_version = 5;
+  int32 version_count = 6;
+}
+
+message DatasetVersionEntry {
+  string id = 1;
+  string dataset_id = 2;
+  string tag = 3;
+  string path = 4;
+  int64 size = 5;
+  int64 created_at_unix = 6;
+  string message = 7;
+}
+
+message ListDatasetsRequest {}
+
+message ListDatasetsResponse {
+  repeated DatasetEntry datasets = 1;
+}
+
+message CreateDatasetRequest {
+  string name = 1;
+  string path = 2;
+  string description = 3;
+}
+
+message DeleteDatasetRequest {
+  string name = 1;
+  string id = 2;
+}
+
+message DatasetMutationResponse {
+  string message = 1;
+  DatasetEntry dataset = 2;
+}
+
+message IngestDatasetRequest {
+  string dataset_id = 1;
+  string name = 2;
+  string source_path = 3;
+  bool recursive = 4;
+  string format = 5;
+}
+
+message IngestDatasetResponse {
+  string message = 1;
+  int32 files_added = 2;
+  int64 bytes_added = 3;
+  string version_id = 4;
+}
+
+message CreateDatasetVersionRequest {
+  string dataset_id = 1;
+  string name = 2;
+  string tag = 3;
+  string message = 4;
+}
+
+message DatasetVersionResponse {
+  DatasetVersionEntry version = 1;
+  string message = 2;
+}
+
+message ListDatasetVersionsRequest {
+  string dataset_id = 1;
+  string name = 2;
+}
+
+message ListDatasetVersionsResponse {
+  repeated DatasetVersionEntry versions = 1;
+}
+
+message ProduceDataRequest {
+  string task = 1;
+  string model = 2;
+  string text = 3;
+  string text_file = 4;
+  string image_path = 5;
+  string csv_path = 6;
+  string graph_path = 7;
+  string input_format = 8;
+  string input_shape = 9;
+  string output_shape = 10;
+  int32 horizon = 11;
+  bytes input_payload = 12;
+  string input_payload_format = 13;
+  repeated string texts = 14;
+}
+
+message ProduceDataResponse {
+  bytes payload = 1;
+  string payload_format = 2;
+  string kind = 3;
+}
+
+message RAGRequestMsg {
+  string task = 1;
+  string store_root = 2;
+  string collection = 3;
+  string query = 4;
+  repeated string source_paths = 5;
+  bool use_stdin = 6;
+  bool recursive = 7;
+  int32 chunk_size = 8;
+  int32 chunk_overlap = 9;
+  string embed_model = 10;
+  string text_model = 11;
+  string system_prompt = 12;
+  int32 top_k = 13;
+  float min_score = 14;
+  int32 max_tokens = 15;
+  string purge_source = 16;
+  map<string, string> filter = 17;
+  map<string, string> index_metadata = 18;
+  string index_mode = 19;
+  bool force = 20;
+  bool dry_run = 21;
+  string glob = 22;
+  repeated string exclude = 23;
+  string url = 24;
+  string query_file = 25;
+  bool query_stdin = 26;
+  int32 rerank_top = 27;
+  bool diverse = 28;
+  int32 context_max_chars = 29;
+  bool cite = 30;
+  float temperature = 31;
+  float top_p = 32;
+  bool no_context = 33;
+  bool include_scores = 34;
+  string rename_to = 35;
+  string export_path = 36;
+  string import_path = 37;
+}
+
+message RAGResponseMsg {
+  bytes payload = 1;
+  string payload_format = 2;
+  string kind = 3;
+}
