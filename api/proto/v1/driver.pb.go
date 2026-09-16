@@ -8095,7 +8095,7 @@ const file_driver_proto_rawDesc = "" +
 	"\x14CreateDatasetVersion\x12$.wuji.v1.CreateDatasetVersionRequest\x1a\x1f.wuji.v1.DatasetVersionResponse\x12`\n" +
 	"\x13ListDatasetVersions\x12#.wuji.v1.ListDatasetVersionsRequest\x1a$.wuji.v1.ListDatasetVersionsResponse\x12H\n" +
 	"\vProduceData\x12\x1b.wuji.v1.ProduceDataRequest\x1a\x1c.wuji.v1.ProduceDataResponse\x129\n" +
-	"\x06RunRAG\x12\x16.wuji.v1.RAGRequestMsg\x1a\x17.wuji.v1.RAGResponseMsgB8Z6github.com/coditary/wuji-core/api/proto/v1;wujiv1b\x06proto3"
+	"\x06RunRAG\x12\x16.wuji.v1.RAGRequestMsg\x1a\x17.wuji.v1.RAGResponseMsgB3Z1github.com/coditary/wuji-core/api/proto/v1;wujiv1b\x06proto3"
 
 var (
 	file_driver_proto_rawDescOnce sync.Once

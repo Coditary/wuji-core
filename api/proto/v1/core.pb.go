@@ -586,7 +586,7 @@ const file_core_proto_rawDesc = "" +
 	"\x12GenerateTextStream\x12\x14.wuji.v1.CallRequest\x1a\x18.wuji.v1.TextStreamChunk0\x01\x123\n" +
 	"\x04Ping\x12\x14.wuji.v1.PingRequest\x1a\x15.wuji.v1.PingResponse\x12?\n" +
 	"\bPutFiles\x12\x18.wuji.v1.PutFilesRequest\x1a\x19.wuji.v1.PutFilesResponse\x12?\n" +
-	"\bGetFiles\x12\x18.wuji.v1.GetFilesRequest\x1a\x19.wuji.v1.GetFilesResponseB8Z6github.com/coditary/wuji-core/api/proto/v1;wujiv1b\x06proto3"
+	"\bGetFiles\x12\x18.wuji.v1.GetFilesRequest\x1a\x19.wuji.v1.GetFilesResponseB3Z1github.com/coditary/wuji-core/api/proto/v1;wujiv1b\x06proto3"
 
 var (
 	file_core_proto_rawDescOnce sync.Once
