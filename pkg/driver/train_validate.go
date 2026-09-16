@@ -130,8 +130,5 @@ func ValidateVoiceTrainRequest(req VoiceTrainRequest) error {
 	if strings.TrimSpace(req.DatasetID) == "" {
 		return fmt.Errorf("--dataset is required")
 	}
-	if method == VoiceTrainMethodRVC && strings.TrimSpace(req.SamplePath) == "" {
-		// sample is recommended but dataset can hold all wavs; warn only via docs
-	}
 	return nil
 }

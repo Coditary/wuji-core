@@ -12,3 +12,8 @@ linters:
 issues:
   exclude-dirs:
     - api/proto/v1
+  exclude-rules:
+    - path: pkg/driver/image_proto\.go
+      linters:
+        - staticcheck
+      text: "SA1019:"
