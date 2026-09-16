@@ -63,14 +63,14 @@ func TrimAudio(ctx context.Context, ffmpegBin, inputPath, outputPath string, dur
 		"-c", "copy",
 		outputPath,
 	)
-	if out, err := cmd.CombinedOutput(); err != nil {
+	if _, err := cmd.CombinedOutput(); err != nil {
 		// Stream copy may fail for some codecs; re-encode on fallback.
 		cmd = exec.CommandContext(ctx, bin,
 			"-y", "-i", inputPath,
 			"-t", fmt.Sprintf("%.3f", durationSec),
 			outputPath,
 		)
-		if out, err = cmd.CombinedOutput(); err != nil {
+		if out, err := cmd.CombinedOutput(); err != nil {
 			return fmt.Errorf("trim audio: %w\n%s", err, strings.TrimSpace(string(out)))
 		}
 	}

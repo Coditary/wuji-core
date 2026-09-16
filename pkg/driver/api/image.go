@@ -110,15 +110,11 @@ func unionImageFromUpscale(req driver.ImageUpscaleRequest, task driver.ImageTask
 }
 
 func unionImageFromDownscale(req driver.ImageDownscaleRequest) driver.ImageRequest {
-	return unionImageFromUpscale(driver.ImageUpscaleRequest{
-		InitImagePath: req.InitImagePath, Model: req.Model, Scale: req.Scale, LoRAs: req.LoRAs,
-	}, driver.ImageTaskUpscale)
+	return unionImageFromUpscale(driver.ImageUpscaleRequest(req), driver.ImageTaskUpscale)
 }
 
 func unionImageFromScale(req driver.ImageScaleRequest) driver.ImageRequest {
-	return unionImageFromUpscale(driver.ImageUpscaleRequest{
-		InitImagePath: req.InitImagePath, Model: req.Model, Scale: req.Scale, LoRAs: req.LoRAs,
-	}, driver.ImageTaskUpscale)
+	return unionImageFromUpscale(driver.ImageUpscaleRequest(req), driver.ImageTaskUpscale)
 }
 
 func unionImageFromEdit(req driver.ImageEditRequest) driver.ImageRequest {
