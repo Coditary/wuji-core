@@ -12,21 +12,21 @@ type TrainResponse struct {
 
 // TextTrainRequest configures LLM / text model fine-tuning.
 type TextTrainRequest struct {
-	Method                   TextTrainMethod
-	Name                     string
-	DatasetID                string
-	BaseModel                string
-	OutputPath               string
-	Epochs                   int
-	LearningRate             float32
-	LoRARank                 int
-	LoRAAlpha                int
-	ContextLength            int
-	BatchSize                int
+	Method                    TextTrainMethod
+	Name                      string
+	DatasetID                 string
+	BaseModel                 string
+	OutputPath                string
+	Epochs                    int
+	LearningRate              float32
+	LoRARank                  int
+	LoRAAlpha                 int
+	ContextLength             int
+	BatchSize                 int
 	GradientAccumulationSteps int
-	WarmupSteps              int
-	SaveEveryEpoch           int
-	Seed                     int
+	WarmupSteps               int
+	SaveEveryEpoch            int
+	Seed                      int
 }
 
 // ImageTrainRequest configures image / diffusion model training.

@@ -52,10 +52,10 @@ type ExportOpts struct {
 // DefaultExportOpts returns sensible CLI defaults.
 func DefaultExportOpts() ExportOpts {
 	return ExportOpts{
-		Format:     FormatJSON,
-		CSVView:    CSVViewRecords,
-		VectorCSV:  VectorCSVDims,
+		Format:      FormatJSON,
+		CSVView:     CSVViewRecords,
+		VectorCSV:   VectorCSVDims,
 		IncludeMeta: true,
-		PrettyJSON: true,
+		PrettyJSON:  true,
 	}
 }

@@ -66,7 +66,7 @@ func Connect(ctx context.Context, endpoint string) (*RemoteDriver, error) {
 	}, nil
 }
 
-func (d *RemoteDriver) Info() driver.Info  { return d.info }
+func (d *RemoteDriver) Info() driver.Info               { return d.info }
 func (d *RemoteDriver) Capabilities() []capability.Type { return d.info.Capabilities }
 
 func (d *RemoteDriver) GenerateText(ctx context.Context, req driver.TextRequest) (*driver.TextResponse, error) {

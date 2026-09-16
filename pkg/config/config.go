@@ -23,11 +23,11 @@ type Config struct {
 	Providers         map[string]ProviderConfig `yaml:"providers,omitempty"`
 	APIs              map[string]APIEntry       `yaml:"apis,omitempty"`
 	CapabilityDrivers CapabilityDrivers         `yaml:"capability_drivers,omitempty"`
-	LoRAs             LoRAConfig        `yaml:"loras,omitempty"`
-	Drivers           DriversConfig               `yaml:"drivers,omitempty"`
+	LoRAs             LoRAConfig                `yaml:"loras,omitempty"`
+	Drivers           DriversConfig             `yaml:"drivers,omitempty"`
 	DriverEndpoints   []string
-	Pricing           map[string]ModelPricing     `yaml:"pricing,omitempty"`
-	Catalog           *CatalogConfig              `yaml:"catalog,omitempty"`
+	Pricing           map[string]ModelPricing `yaml:"pricing,omitempty"`
+	Catalog           *CatalogConfig          `yaml:"catalog,omitempty"`
 }
 
 // DriversConfig holds per-driver settings.
@@ -56,11 +56,11 @@ type fileConfig struct {
 	Providers         map[string]ProviderConfig `yaml:"providers,omitempty"`
 	APIs              map[string]APIEntry       `yaml:"apis,omitempty"`
 	CapabilityDrivers CapabilityDrivers         `yaml:"capability_drivers,omitempty"`
-	LoRAs             LoRAConfig        `yaml:"loras,omitempty"`
-	Drivers           DriversConfig               `yaml:"drivers,omitempty"`
-	DriverEndpoints   []string                    `yaml:"driver_endpoints,omitempty"`
-	Pricing           map[string]ModelPricing     `yaml:"pricing,omitempty"`
-	Catalog           *CatalogConfig              `yaml:"catalog,omitempty"`
+	LoRAs             LoRAConfig                `yaml:"loras,omitempty"`
+	Drivers           DriversConfig             `yaml:"drivers,omitempty"`
+	DriverEndpoints   []string                  `yaml:"driver_endpoints,omitempty"`
+	Pricing           map[string]ModelPricing   `yaml:"pricing,omitempty"`
+	Catalog           *CatalogConfig            `yaml:"catalog,omitempty"`
 }
 
 // Load reads configuration from the project root.

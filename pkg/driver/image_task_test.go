@@ -37,8 +37,8 @@ func TestImageRequestValidate(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "generate requires prompt",
-			req:  driver.ImageRequest{Task: driver.ImageTaskGenerate},
+			name:    "generate requires prompt",
+			req:     driver.ImageRequest{Task: driver.ImageTaskGenerate},
 			wantErr: true,
 		},
 		{

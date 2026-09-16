@@ -34,8 +34,8 @@ func TestTextRequestValidateTranslateWithMedia(t *testing.T) {
 
 func TestTextRequestForGenerationTranslate(t *testing.T) {
 	req := driver.TextRequest{
-		Prompt:    "Hallo",
-		Translate: true,
+		Prompt:     "Hallo",
+		Translate:  true,
 		TargetLang: "French",
 	}
 	out := req.ForGeneration()

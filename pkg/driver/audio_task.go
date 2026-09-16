@@ -19,10 +19,10 @@ const (
 )
 
 type AudioTaskInfo struct {
-	Task                 AudioTask
-	Description          string
-	RequiresPrompt       bool
-	RequiresReference    bool
+	Task              AudioTask
+	Description       string
+	RequiresPrompt    bool
+	RequiresReference bool
 }
 
 func AllAudioTasks() []AudioTask {

@@ -45,7 +45,7 @@ func TestEnsureAPIRoutePreservesExisting(t *testing.T) {
 	}
 	EnsureAPIRoute(cfg, "anthropic", ProviderEntry{
 		ID: "anthropic", API: "https://api.anthropic.com", NPM: "@ai-sdk/anthropic",
-		Env: []string{"ANTHROPIC_API_KEY"},
+		Env:    []string{"ANTHROPIC_API_KEY"},
 		Models: map[string]string{"claude-opus-5": "Claude Opus 5"},
 	})
 	if cfg.APIs["anthropic"].Text.Defaults.Model != "claude-opus-5" {

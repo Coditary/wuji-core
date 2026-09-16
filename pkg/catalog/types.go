@@ -2,18 +2,18 @@ package catalog
 
 const (
 	// IndexVersion is bumped when the on-disk index schema changes.
-	IndexVersion = 1
+	IndexVersion  = 1
 	DefaultSource = "https://models.dev"
 )
 
 // Index is the slim runtime catalog stored under .wuji/catalog/index.json.
 type Index struct {
-	Version   int                       `json:"version"`
-	Source    string                    `json:"source"`
-	SyncedAt  string                    `json:"synced_at"`
-	Providers map[string]ProviderEntry  `json:"providers"`
-	Models    map[string]ModelEntry     `json:"models"`
-	Labs      map[string]LabEntry       `json:"labs"`
+	Version   int                      `json:"version"`
+	Source    string                   `json:"source"`
+	SyncedAt  string                   `json:"synced_at"`
+	Providers map[string]ProviderEntry `json:"providers"`
+	Models    map[string]ModelEntry    `json:"models"`
+	Labs      map[string]LabEntry      `json:"labs"`
 }
 
 // Meta describes the last catalog sync stored in meta.json.

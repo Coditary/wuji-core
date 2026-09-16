@@ -15,7 +15,7 @@ type RaggoConfig struct {
 	OllamaAPI         string `yaml:"ollama_api,omitempty"`
 	OpenAIAPIKey      string `yaml:"openai_api_key,omitempty"`
 	EmbedProvider     string `yaml:"embed_provider,omitempty"` // ollama | openai
-	VectorDB          string `yaml:"vector_db,omitempty"`        // file | memory | chromem
+	VectorDB          string `yaml:"vector_db,omitempty"`      // file | memory | chromem
 	HybridSearch      *bool  `yaml:"hybrid_search,omitempty"`
 	GRPCAddr          string `yaml:"grpc_addr,omitempty"`
 	DriverBin         string `yaml:"driver_bin,omitempty"`

@@ -55,7 +55,9 @@ type textOnlyDriver struct{}
 func (textOnlyDriver) Info() driver.Info {
 	return driver.Info{ID: "text-only", Capabilities: []capability.Type{capability.TextGeneration}}
 }
-func (textOnlyDriver) Capabilities() []capability.Type { return []capability.Type{capability.TextGeneration} }
+func (textOnlyDriver) Capabilities() []capability.Type {
+	return []capability.Type{capability.TextGeneration}
+}
 func (textOnlyDriver) Close() error { return nil }
 func (textOnlyDriver) GenerateText(_ context.Context, req driver.TextRequest) (*driver.TextResponse, error) {
 	return &driver.TextResponse{Text: req.Prompt}, nil

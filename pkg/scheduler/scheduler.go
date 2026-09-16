@@ -81,12 +81,12 @@ type LoadedProbe func(driverID string) bool
 
 // Scheduler coordinates VRAM usage and job ordering.
 type Scheduler struct {
-	cfg       config.EffectiveResources
-	root      string
-	mu        sync.Mutex
-	unload    UnloadFunc
-	warm      WarmFunc
-	probe     LoadedProbe
+	cfg    config.EffectiveResources
+	root   string
+	mu     sync.Mutex
+	unload UnloadFunc
+	warm   WarmFunc
+	probe  LoadedProbe
 }
 
 // New creates a scheduler. Pass nil unload/warm/probe when resources are disabled.

@@ -9,12 +9,12 @@ import (
 type DatasetTask string
 
 const (
-	DatasetTaskList          DatasetTask = "list"
-	DatasetTaskCreate        DatasetTask = "create"
-	DatasetTaskDelete        DatasetTask = "delete"
-	DatasetTaskIngest        DatasetTask = "ingest"
-	DatasetTaskVersion       DatasetTask = "version"
-	DatasetTaskListVersions  DatasetTask = "list-versions"
+	DatasetTaskList         DatasetTask = "list"
+	DatasetTaskCreate       DatasetTask = "create"
+	DatasetTaskDelete       DatasetTask = "delete"
+	DatasetTaskIngest       DatasetTask = "ingest"
+	DatasetTaskVersion      DatasetTask = "version"
+	DatasetTaskListVersions DatasetTask = "list-versions"
 )
 
 // DatasetAction is a deprecated alias for DatasetTask.
@@ -30,12 +30,12 @@ const (
 )
 
 type DatasetTaskInfo struct {
-	Task                DatasetTask
-	Description         string
-	RequiresName        bool
-	RequiresPath        bool
-	RequiresSourcePath  bool
-	RequiresDatasetRef  bool
+	Task               DatasetTask
+	Description        string
+	RequiresName       bool
+	RequiresPath       bool
+	RequiresSourcePath bool
+	RequiresDatasetRef bool
 }
 
 func AllDatasetTasks() []DatasetTask {

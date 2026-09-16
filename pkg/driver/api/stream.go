@@ -8,9 +8,9 @@ import (
 )
 
 type streamAccum struct {
-	text       strings.Builder
-	toolCalls  []streamToolCall
-	finish     string
+	text      strings.Builder
+	toolCalls []streamToolCall
+	finish    string
 }
 
 type streamToolCall struct {

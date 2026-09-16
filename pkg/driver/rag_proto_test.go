@@ -33,7 +33,7 @@ func TestRAGRequestProtoRoundTrip(t *testing.T) {
 		SourcePaths: []string{"a.txt"}, UseStdin: false, Recursive: true,
 		ChunkSize: 512, ChunkOverlap: 64, EmbedModel: "e1", TextModel: "t1",
 		SystemPrompt: "be brief", TopK: 8, MinScore: 0.2, MaxTokens: 256,
-		Filter: map[string]string{"source": "a.txt"},
+		Filter:      map[string]string{"source": "a.txt"},
 		PurgeSource: "old.txt", IndexMode: driver.RAGIndexAppend, Force: true, DryRun: true,
 		IndexMetadata: map[string]string{"team": "hr"}, Glob: "*.md", Exclude: []string{"drafts"},
 		URL: "http://example.com", QueryFile: "q.txt", QueryStdin: false,

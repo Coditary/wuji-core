@@ -22,11 +22,11 @@ const (
 )
 
 type VoiceTaskInfo struct {
-	Task              VoiceTask
-	Description       string
-	RequiresName      bool
-	RequiresSample    bool
-	RequiresSource    bool
+	Task           VoiceTask
+	Description    string
+	RequiresName   bool
+	RequiresSample bool
+	RequiresSource bool
 }
 
 func AllVoiceTasks() []VoiceTask {

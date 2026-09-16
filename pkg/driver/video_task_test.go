@@ -38,8 +38,8 @@ func TestVideoRequestValidate(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "generate requires prompt",
-			req:  driver.VideoRequest{Task: driver.VideoTaskGenerate},
+			name:    "generate requires prompt",
+			req:     driver.VideoRequest{Task: driver.VideoTaskGenerate},
 			wantErr: true,
 		},
 		{

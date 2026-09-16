@@ -56,9 +56,9 @@ type voiceCatalogStub struct {
 	profiles []VoiceProfileInfo
 }
 
-func (s voiceCatalogStub) Info() Info { return Info{ID: "stub"} }
+func (s voiceCatalogStub) Info() Info                      { return Info{ID: "stub"} }
 func (s voiceCatalogStub) Capabilities() []capability.Type { return nil }
-func (s voiceCatalogStub) Close() error { return nil }
+func (s voiceCatalogStub) Close() error                    { return nil }
 func (s voiceCatalogStub) ListVoiceProfiles(context.Context) ([]VoiceProfileInfo, error) {
 	return s.profiles, nil
 }

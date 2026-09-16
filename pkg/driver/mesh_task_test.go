@@ -175,9 +175,9 @@ type meshTestDriver struct {
 	info Info
 }
 
-func (d *meshTestDriver) Info() Info            { return d.info }
+func (d *meshTestDriver) Info() Info                      { return d.info }
 func (d *meshTestDriver) Capabilities() []capability.Type { return nil }
-func (d *meshTestDriver) Close() error        { return nil }
+func (d *meshTestDriver) Close() error                    { return nil }
 
 func (d *meshTestDriver) GenerateMesh(_ context.Context, req MeshRequest) (*MeshResponse, error) {
 	return &MeshResponse{Path: "/tmp/test.glb", Format: "glb", Task: req.TaskOrDefault()}, nil

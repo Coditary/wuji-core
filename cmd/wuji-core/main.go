@@ -8,9 +8,9 @@ import (
 	"strings"
 	"syscall"
 
+	grpcserver "github.com/coditary/wuji-core/internal/server/grpc"
 	"github.com/coditary/wuji-core/pkg/config"
 	"github.com/coditary/wuji-core/pkg/core"
-	grpcserver "github.com/coditary/wuji-core/internal/server/grpc"
 )
 
 func main() {

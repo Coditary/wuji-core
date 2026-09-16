@@ -18,7 +18,7 @@ type Column struct {
 
 // Table is a columnar representation for tabular / forecast data.
 type Table struct {
-	MetaData Meta     `json:"-"`
+	MetaData Meta       `json:"-"`
 	Schema   []FieldDef `json:"schema,omitempty"`
 	Columns  []Column   `json:"-"`
 }

@@ -95,11 +95,11 @@ const (
 
 // Classical / tabular ML serialization.
 const (
-	XGBoost   Type = "xgboost"
-	LightGBM  Type = "lightgbm"
-	Joblib    Type = "joblib"
-	PMML      Type = "pmml"
-	Sklearn   Type = "sklearn"
+	XGBoost  Type = "xgboost"
+	LightGBM Type = "lightgbm"
+	Joblib   Type = "joblib"
+	PMML     Type = "pmml"
+	Sklearn  Type = "sklearn"
 )
 
 // All returns every known format type in a stable order.

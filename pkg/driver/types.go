@@ -46,16 +46,16 @@ type ChatToolCall struct {
 
 // TextRequest is the input for text generation.
 type TextRequest struct {
-	InputMode  TextInputMode `json:"input_mode,omitempty"`
-	Prompt     string        `json:"prompt,omitempty"`
-	MediaPath  string        `json:"media_path,omitempty"`
+	InputMode TextInputMode `json:"input_mode,omitempty"`
+	Prompt    string        `json:"prompt,omitempty"`
+	MediaPath string        `json:"media_path,omitempty"`
 
 	// Chat/agent mode (optional; when set, used by API drivers and agent clients)
-	Messages []ChatMessage `json:"messages,omitempty"`
-	Tools    []ChatToolDef `json:"tools,omitempty"`
-	Translate  bool   `json:"translate,omitempty"`
-	TargetLang string `json:"target_lang,omitempty"`
-	Language   string `json:"language,omitempty"` // source language: --audio or --translate (text source)
+	Messages   []ChatMessage `json:"messages,omitempty"`
+	Tools      []ChatToolDef `json:"tools,omitempty"`
+	Translate  bool          `json:"translate,omitempty"`
+	TargetLang string        `json:"target_lang,omitempty"`
+	Language   string        `json:"language,omitempty"` // source language: --audio or --translate (text source)
 
 	// Audio transcription options (--audio only)
 	BeamSize       int     `json:"beam_size,omitempty"`
@@ -69,9 +69,9 @@ type TextRequest struct {
 	Temperature  float32 `json:"temperature,omitempty"`
 
 	// Sampling (zero values = use backend default)
-	TopP  float32 `json:"top_p,omitempty"`
-	TopK  int     `json:"top_k,omitempty"`
-	MinP  float32 `json:"min_p,omitempty"`
+	TopP float32 `json:"top_p,omitempty"`
+	TopK int     `json:"top_k,omitempty"`
+	MinP float32 `json:"min_p,omitempty"`
 
 	// Penalties (zero values = use backend default)
 	FrequencyPenalty  float32 `json:"frequency_penalty,omitempty"`
@@ -101,12 +101,12 @@ type TextResponse struct {
 	Text             string          `json:"text"`
 	ThinkingBlocks   []ThinkingBlock `json:"thinking_blocks,omitempty"`
 	TokensUsed       int             `json:"tokens_used"`
-	InputTokens      int            `json:"input_tokens,omitempty"`
-	LatencyMs        int64          `json:"latency_ms,omitempty"`
-	TokensPerSec     float64        `json:"tokens_per_sec,omitempty"`
-	EstimatedCostUSD float64        `json:"estimated_cost_usd,omitempty"`
-	FinishReason     string         `json:"finish_reason,omitempty"`
-	ToolCalls        []ChatToolCall `json:"tool_calls,omitempty"`
+	InputTokens      int             `json:"input_tokens,omitempty"`
+	LatencyMs        int64           `json:"latency_ms,omitempty"`
+	TokensPerSec     float64         `json:"tokens_per_sec,omitempty"`
+	EstimatedCostUSD float64         `json:"estimated_cost_usd,omitempty"`
+	FinishReason     string          `json:"finish_reason,omitempty"`
+	ToolCalls        []ChatToolCall  `json:"tool_calls,omitempty"`
 }
 
 // Video2AudioRequest is the input for extracting audio from a video file.
@@ -135,19 +135,19 @@ type ImageRequest struct {
 	BatchCount     int
 
 	// Advanced (Seed nil = random; zero values = backend default)
-	Seed              *int
-	DenoisingStrength float32
-	InitImagePath     string
-	MaskImagePath     string
-	ControlImagePath  string
-	ControlType       ImageControlType
-	ControlUnits      []ControlNetUnit
-	ControlMode       ControlNetMode
-	StyleImagePath    string
-	StyleWeight       float32
-	Scale             float32
-	LoRAs             []LoRARef
-	Mode              AssetMode
+	Seed               *int
+	DenoisingStrength  float32
+	InitImagePath      string
+	MaskImagePath      string
+	ControlImagePath   string
+	ControlType        ImageControlType
+	ControlUnits       []ControlNetUnit
+	ControlMode        ControlNetMode
+	StyleImagePath     string
+	StyleWeight        float32
+	Scale              float32
+	LoRAs              []LoRARef
+	Mode               AssetMode
 	FrameWidth         int
 	FrameHeight        int
 	Columns            int
@@ -184,8 +184,8 @@ const (
 
 // VideoRequest is the CLI union input for all video tasks.
 type VideoRequest struct {
-	Task   VideoTask
-	Prompt string
+	Task     VideoTask
+	Prompt   string
 	Duration float32
 	FPS      int
 	Frames   int
@@ -271,9 +271,9 @@ type MeshRequest struct {
 	Model  string
 	Seed   *int
 
-	TargetTris int
-	Scale      float32
-	Mode       AssetMode
+	TargetTris     int
+	Scale          float32
+	Mode           AssetMode
 	Representation MeshRepresentation
 
 	InitMeshPath       string

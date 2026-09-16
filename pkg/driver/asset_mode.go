@@ -28,12 +28,12 @@ type MeshMode = AssetMode
 type ImageMode = AssetMode
 
 const (
-	MeshModeProp         = AssetModeProp
-	MeshModeHuman        = AssetModeHuman
-	MeshModeHardSurface  = AssetModeHardSurface
-	MeshModeTerrain      = AssetModeTerrain
-	MeshModeEnvironment  = AssetModeEnvironment
-	MeshModeFace         = AssetModeFace
+	MeshModeProp        = AssetModeProp
+	MeshModeHuman       = AssetModeHuman
+	MeshModeHardSurface = AssetModeHardSurface
+	MeshModeTerrain     = AssetModeTerrain
+	MeshModeEnvironment = AssetModeEnvironment
+	MeshModeFace        = AssetModeFace
 )
 
 func AllAssetModes() []AssetMode {

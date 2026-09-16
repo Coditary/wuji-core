@@ -137,8 +137,8 @@ func chatToolsToProto(tools []ChatToolDef) []*wujiv1.ChatToolDef {
 			}
 		}
 		out = append(out, &wujiv1.ChatToolDef{
-			Name:            t.Name,
-			Description:     t.Description,
+			Name:           t.Name,
+			Description:    t.Description,
 			ParametersJson: paramsJSON,
 		})
 	}

@@ -88,20 +88,20 @@ func parseJSONVector(raw map[string]json.RawMessage) (*VectorBatch, error) {
 }
 
 type recordWire struct {
-	ID     string                 `json:"id"`
-	Role   string                 `json:"role"`
-	Parent string                 `json:"parent"`
-	Seq    int                    `json:"seq"`
+	ID     string                     `json:"id"`
+	Role   string                     `json:"role"`
+	Parent string                     `json:"parent"`
+	Seq    int                        `json:"seq"`
 	Fields map[string]json.RawMessage `json:"fields"`
 }
 
 type linkWire struct {
-	ID       string                 `json:"id"`
-	Type     string                 `json:"type"`
-	From     string                 `json:"from"`
-	To       string                 `json:"to"`
-	Directed *bool                  `json:"directed"`
-	Weight   *float64               `json:"weight"`
+	ID       string                     `json:"id"`
+	Type     string                     `json:"type"`
+	From     string                     `json:"from"`
+	To       string                     `json:"to"`
+	Directed *bool                      `json:"directed"`
+	Weight   *float64                   `json:"weight"`
 	Fields   map[string]json.RawMessage `json:"fields"`
 }
 

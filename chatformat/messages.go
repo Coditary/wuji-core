@@ -110,17 +110,17 @@ func MessagesAnthropic(msgs []Message, maps NameMaps) (string, []map[string]any)
 
 // OllamaMessage is the Ollama /api/chat message shape.
 type OllamaMessage struct {
-	Role      string          `json:"role"`
-	Content   string          `json:"content,omitempty"`
-	ToolName  string          `json:"tool_name,omitempty"`
+	Role      string           `json:"role"`
+	Content   string           `json:"content,omitempty"`
+	ToolName  string           `json:"tool_name,omitempty"`
 	ToolCalls []OllamaToolCall `json:"tool_calls,omitempty"`
 }
 
 // OllamaToolCall mirrors Ollama's tool call wire format.
 type OllamaToolCall struct {
-	ID       string              `json:"id,omitempty"`
-	Type     string              `json:"type,omitempty"`
-	Function OllamaFunctionCall  `json:"function"`
+	ID       string             `json:"id,omitempty"`
+	Type     string             `json:"type,omitempty"`
+	Function OllamaFunctionCall `json:"function"`
 }
 
 // OllamaFunctionCall is the function payload inside an Ollama tool call.

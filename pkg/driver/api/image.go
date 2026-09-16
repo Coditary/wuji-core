@@ -168,7 +168,7 @@ func unionImageFromSprite(req driver.ImageSpriteRequest) driver.ImageRequest {
 		FrameWidth: req.FrameWidth, FrameHeight: req.FrameHeight,
 		Columns: req.Columns, Rows: req.Rows, FrameCount: req.FrameCount,
 		DenoisingStrength: req.DenoisingStrength,
-		SpriteAction: req.Action, SpriteView: req.View, SpriteDirections: req.Directions,
+		SpriteAction:      req.Action, SpriteView: req.View, SpriteDirections: req.Directions,
 		SpriteLoop: req.Loop, SpritePadding: req.Padding, SpriteTransparent: req.Transparent,
 		LoRAs: req.LoRAs,
 	}

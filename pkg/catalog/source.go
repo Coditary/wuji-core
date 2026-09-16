@@ -16,23 +16,23 @@ type rawCatalog struct {
 }
 
 type rawProvider struct {
-	ID     string               `json:"id"`
-	Name   string               `json:"name"`
-	API    string               `json:"api"`
-	NPM    string               `json:"npm"`
-	Doc    string               `json:"doc"`
-	Env    []string             `json:"env"`
-	Models map[string]rawModel  `json:"models"`
+	ID     string              `json:"id"`
+	Name   string              `json:"name"`
+	API    string              `json:"api"`
+	NPM    string              `json:"npm"`
+	Doc    string              `json:"doc"`
+	Env    []string            `json:"env"`
+	Models map[string]rawModel `json:"models"`
 }
 
 type rawModel struct {
-	ID          string         `json:"id"`
-	Name        string         `json:"name"`
-	Family      string         `json:"family"`
-	Reasoning   bool           `json:"reasoning"`
-	ToolCall    bool           `json:"tool_call"`
-	OpenWeights bool           `json:"open_weights"`
-	Limit       rawModelLimit  `json:"limit"`
+	ID          string        `json:"id"`
+	Name        string        `json:"name"`
+	Family      string        `json:"family"`
+	Reasoning   bool          `json:"reasoning"`
+	ToolCall    bool          `json:"tool_call"`
+	OpenWeights bool          `json:"open_weights"`
+	Limit       rawModelLimit `json:"limit"`
 }
 
 type rawModelLimit struct {

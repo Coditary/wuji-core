@@ -15,8 +15,8 @@ import (
 )
 
 var (
-	warnResourcesMu           sync.Mutex
-	warnedResourcesDisabled   bool
+	warnResourcesMu         sync.Mutex
+	warnedResourcesDisabled bool
 )
 
 func (c *Core) initScheduler() {

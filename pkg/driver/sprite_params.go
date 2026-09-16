@@ -23,11 +23,11 @@ const (
 type SpriteView string
 
 const (
-	SpriteViewSide       SpriteView = "side"
-	SpriteViewFront      SpriteView = "front"
-	SpriteViewBack       SpriteView = "back"
-	SpriteViewTop        SpriteView = "top"
-	SpriteViewIsometric  SpriteView = "isometric"
+	SpriteViewSide         SpriteView = "side"
+	SpriteViewFront        SpriteView = "front"
+	SpriteViewBack         SpriteView = "back"
+	SpriteViewTop          SpriteView = "top"
+	SpriteViewIsometric    SpriteView = "isometric"
 	SpriteViewThreeQuarter SpriteView = "three-quarter"
 )
 

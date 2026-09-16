@@ -14,8 +14,8 @@ type Input struct {
 	SizeSet  bool
 	CountSet bool
 
-	Width, Height  int
-	ControlUnits   int
+	Width, Height   int
+	ControlUnits    int
 	AvailableVRAMMB int // 0 = unknown, use conservative defaults
 }
 

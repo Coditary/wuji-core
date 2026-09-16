@@ -22,3 +22,12 @@ func TestParse(t *testing.T) {
 		}
 	}
 }
+
+func TestParseErrors(t *testing.T) {
+	cases := []string{"", "0", "-1", "70,5", "abc%", "0%"}
+	for _, in := range cases {
+		if _, err := Parse(in); err == nil {
+			t.Fatalf("Parse(%q) expected error", in)
+		}
+	}
+}

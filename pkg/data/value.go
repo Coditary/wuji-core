@@ -38,8 +38,8 @@ type Value struct {
 
 // BBox is an axis-aligned rectangle.
 type BBox struct {
-	X, Y, W, H   float64
-	Normalized   bool
+	X, Y, W, H float64
+	Normalized bool
 }
 
 // Span is a text span (e.g. NER).
@@ -111,9 +111,9 @@ func (v Value) JSONAny() any {
 			vals[i] = float64(x)
 		}
 		return map[string]any{
-			"type":  "vector",
-			"dims":  len(v.Vec),
-			"dtype": "f32",
+			"type":   "vector",
+			"dims":   len(v.Vec),
+			"dtype":  "f32",
 			"values": vals,
 		}
 	case KindBBox:

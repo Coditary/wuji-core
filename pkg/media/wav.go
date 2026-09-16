@@ -47,7 +47,7 @@ func WritePlaceholderWAV(path string, durationSec float32, sampleRate int) error
 	binary.LittleEndian.PutUint32(header[24:28], uint32(sampleRate))
 	byteRate := sampleRate * 2
 	binary.LittleEndian.PutUint32(header[28:32], uint32(byteRate))
-	binary.LittleEndian.PutUint16(header[32:34], 2) // block align
+	binary.LittleEndian.PutUint16(header[32:34], 2)  // block align
 	binary.LittleEndian.PutUint16(header[34:36], 16) // bits per sample
 	copy(header[36:40], "data")
 	binary.LittleEndian.PutUint32(header[40:44], uint32(dataSize))

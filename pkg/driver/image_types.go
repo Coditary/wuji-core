@@ -83,8 +83,8 @@ type ImageControlNetRequest struct {
 
 // ImageDepthToImageRequest is input for depth-conditioned generation (DepthToImage RPC).
 type ImageDepthToImageRequest struct {
-	Prompt          string
-	DepthImagePath  string
+	Prompt         string
+	DepthImagePath string
 	ImageCommonParams
 }
 

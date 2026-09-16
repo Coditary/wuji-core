@@ -16,9 +16,9 @@ import (
 const idleCheckInterval = 30 * time.Second
 
 type driverActivity struct {
-	lastUsed   time.Time
-	endpoint   string
-	activeOps  int // >0 while a wuji command holds the driver (generate, train, load, …)
+	lastUsed    time.Time
+	endpoint    string
+	activeOps   int // >0 while a wuji command holds the driver (generate, train, load, …)
 	activeSince time.Time
 }
 

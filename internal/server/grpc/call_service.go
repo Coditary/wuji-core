@@ -177,9 +177,9 @@ func (s *CoreService) dispatch(ctx context.Context, method string, payload []byt
 		return json.Marshal(s.core.ResourcesConfig())
 	case "LoadInference":
 		var body struct {
-			DriverID string           `json:"driver_id"`
-			Model    string           `json:"model"`
-			Cap      capability.Type  `json:"capability"`
+			DriverID string          `json:"driver_id"`
+			Model    string          `json:"model"`
+			Cap      capability.Type `json:"capability"`
 		}
 		if err := json.Unmarshal(payload, &body); err != nil {
 			return nil, err

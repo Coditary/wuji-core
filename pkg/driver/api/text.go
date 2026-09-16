@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/coditary/wuji-core/chatformat"
 	"github.com/coditary/wuji-core/pkg/config"
 	"github.com/coditary/wuji-core/pkg/driver"
-	"github.com/coditary/wuji-core/chatformat"
 )
 
 func completeText(ctx context.Context, spec *config.APICapabilitySpec, req driver.TextRequest) (*driver.TextResponse, error) {
@@ -408,7 +408,7 @@ func parseOpenAIResponse(raw []byte) (*driver.TextResponse, error) {
 				ReasoningContent string `json:"reasoning_content"`
 				Reasoning        string `json:"reasoning"`
 				Thinking         string `json:"thinking"`
-				ToolCalls []struct {
+				ToolCalls        []struct {
 					ID       string `json:"id"`
 					Function struct {
 						Name      string `json:"name"`

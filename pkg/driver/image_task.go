@@ -9,14 +9,14 @@ import (
 type ImageTask string
 
 const (
-	ImageTaskGenerate     ImageTask = "generate"
-	ImageTaskImg2Img      ImageTask = "img2img"
-	ImageTaskInpaint      ImageTask = "inpaint"
-	ImageTaskUpscale      ImageTask = "upscale"
-	ImageTaskEdit         ImageTask = "edit"
-	ImageTaskControlNet   ImageTask = "controlnet"
-	ImageTaskDepth2Img    ImageTask = "depth2img"
-	ImageTaskVariation    ImageTask = "variation"
+	ImageTaskGenerate      ImageTask = "generate"
+	ImageTaskImg2Img       ImageTask = "img2img"
+	ImageTaskInpaint       ImageTask = "inpaint"
+	ImageTaskUpscale       ImageTask = "upscale"
+	ImageTaskEdit          ImageTask = "edit"
+	ImageTaskControlNet    ImageTask = "controlnet"
+	ImageTaskDepth2Img     ImageTask = "depth2img"
+	ImageTaskVariation     ImageTask = "variation"
 	ImageTaskStyleTransfer ImageTask = "style-transfer"
 	ImageTaskSprite        ImageTask = "sprite"
 )
@@ -39,14 +39,14 @@ const (
 
 // ImageTaskInfo describes a task and its required inputs for CLI help and validation.
 type ImageTaskInfo struct {
-	Task         ImageTask
-	Description  string
-	RequiresPrompt bool
-	RequiresInitImage bool
-	RequiresMask bool
+	Task                 ImageTask
+	Description          string
+	RequiresPrompt       bool
+	RequiresInitImage    bool
+	RequiresMask         bool
 	RequiresControlImage bool
-	RequiresControlType bool
-	RequiresStyleImage bool
+	RequiresControlType  bool
+	RequiresStyleImage   bool
 }
 
 // AllImageTasks returns every supported image task in display order.
@@ -148,7 +148,7 @@ type ImageTaskInputs struct {
 	Scale            float32
 	UpscaleRequested bool
 	EditRequested    bool
-	SpriteRequested bool
+	SpriteRequested  bool
 }
 
 // InferImageTask selects the image task from provided inputs when --task is omitted.

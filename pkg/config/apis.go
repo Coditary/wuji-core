@@ -41,14 +41,14 @@ type APICapabilitySpec struct {
 	Multipart []APIMultipartField `yaml:"multipart,omitempty"`
 	Poll      *APIPollConfig      `yaml:"poll,omitempty"`
 
-	Streaming      bool `yaml:"streaming,omitempty"`
+	Streaming bool `yaml:"streaming,omitempty"`
 	// Think enables model reasoning for backends that support it.
 	// For vLLM/Ollama/Gemma via OpenAI-compatible API, use "low", "medium", or "high"
 	// (mapped to reasoning_effort). true maps to "low"; false/none disables thinking.
-	Think          any  `yaml:"think,omitempty"`
+	Think any `yaml:"think,omitempty"`
 	// EnsureDriver starts a managed inference driver (e.g. vllm) before HTTP calls.
 	EnsureDriver   string `yaml:"ensure_driver,omitempty"`
-	TimeoutSeconds int  `yaml:"timeout_seconds,omitempty"`
+	TimeoutSeconds int    `yaml:"timeout_seconds,omitempty"`
 
 	APIKey    string `yaml:"api_key,omitempty"`
 	APIKeyEnv string `yaml:"api_key_env,omitempty"`

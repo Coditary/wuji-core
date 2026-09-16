@@ -8,9 +8,9 @@ import (
 
 func TestInferImageTask(t *testing.T) {
 	tests := []struct {
-		name  string
-		in    driver.ImageTaskInputs
-		want  driver.ImageTask
+		name string
+		in   driver.ImageTaskInputs
+		want driver.ImageTask
 	}{
 		{
 			name: "prompt only",

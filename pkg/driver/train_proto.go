@@ -16,7 +16,7 @@ func TextTrainRequestFromProto(req *wujiv1.TrainTextRequest) TextTrainRequest {
 		LearningRate: req.GetLearningRate(), LoRARank: int(req.GetLoraRank()), LoRAAlpha: int(req.GetLoraAlpha()),
 		ContextLength: int(req.GetContextLength()), BatchSize: int(req.GetBatchSize()),
 		GradientAccumulationSteps: int(req.GetGradientAccumulationSteps()),
-		WarmupSteps: int(req.GetWarmupSteps()), SaveEveryEpoch: int(req.GetSaveEveryEpoch()),
+		WarmupSteps:               int(req.GetWarmupSteps()), SaveEveryEpoch: int(req.GetSaveEveryEpoch()),
 		Seed: int(req.GetSeed()),
 	}
 }
@@ -32,7 +32,7 @@ func TextTrainRequestToProto(req TextTrainRequest) *wujiv1.TrainTextRequest {
 		LearningRate: req.LearningRate, LoraRank: int32(req.LoRARank), LoraAlpha: int32(req.LoRAAlpha),
 		ContextLength: int32(req.ContextLength), BatchSize: int32(req.BatchSize),
 		GradientAccumulationSteps: int32(req.GradientAccumulationSteps),
-		WarmupSteps: int32(req.WarmupSteps), SaveEveryEpoch: int32(req.SaveEveryEpoch),
+		WarmupSteps:               int32(req.WarmupSteps), SaveEveryEpoch: int32(req.SaveEveryEpoch),
 		Seed: int32(req.Seed),
 	}
 }

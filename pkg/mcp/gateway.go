@@ -151,4 +151,3 @@ func (m *Manager) StartAllGateways(ctx context.Context, transport Transport, opt
 	}
 	return started, gateways, errs
 }
-

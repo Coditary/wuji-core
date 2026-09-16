@@ -44,10 +44,10 @@ func TestParseSpriteView(t *testing.T) {
 func TestInferImageTaskSpriteWithStyleAndImage(t *testing.T) {
 	t.Parallel()
 	task := driver.InferImageTask(driver.ImageTaskInputs{
-		Prompt:           "walk cycle",
-		InitImagePath:    "hero.png",
-		StyleImagePath:   "style.png",
-		SpriteRequested:  true,
+		Prompt:          "walk cycle",
+		InitImagePath:   "hero.png",
+		StyleImagePath:  "style.png",
+		SpriteRequested: true,
 	})
 	if task != driver.ImageTaskSprite {
 		t.Fatalf("task = %q, want sprite", task)

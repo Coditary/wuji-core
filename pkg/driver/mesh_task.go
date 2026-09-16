@@ -9,55 +9,55 @@ import (
 type MeshTask string
 
 const (
-	MeshTaskGenerate        MeshTask = "generate"
-	MeshTaskImageToMesh     MeshTask = "i2m"
-	MeshTaskMultiView       MeshTask = "multiview"
-	MeshTaskVideoToMesh     MeshTask = "v2m"
-	MeshTaskDepthToMesh     MeshTask = "depth2m"
+	MeshTaskGenerate         MeshTask = "generate"
+	MeshTaskImageToMesh      MeshTask = "i2m"
+	MeshTaskMultiView        MeshTask = "multiview"
+	MeshTaskVideoToMesh      MeshTask = "v2m"
+	MeshTaskDepthToMesh      MeshTask = "depth2m"
 	MeshTaskPointCloudToMesh MeshTask = "pcd2m"
-	MeshTaskSplatToMesh     MeshTask = "splat2m"
-	MeshTaskInpaint         MeshTask = "inpaint"
-	MeshTaskImageToTexture  MeshTask = "img2tex"
-	MeshTaskStyle           MeshTask = "style"
-	MeshTaskTexture         MeshTask = "texture"
-	MeshTaskPBR             MeshTask = "pbr"
-	MeshTaskUV              MeshTask = "uv"
-	MeshTaskDecimate        MeshTask = "decimate"
-	MeshTaskRetopo          MeshTask = "retopo"
-	MeshTaskRemesh          MeshTask = "remesh"
-	MeshTaskRepair          MeshTask = "repair"
-	MeshTaskSmooth          MeshTask = "smooth"
-	MeshTaskRefine          MeshTask = "refine"
-	MeshTaskSegment         MeshTask = "segment"
-	MeshTaskRig             MeshTask = "rig"
-	MeshTaskAnimate         MeshTask = "animate"
-	MeshTaskRetarget        MeshTask = "retarget"
-	MeshTaskBake            MeshTask = "bake"
-	MeshTaskScene           MeshTask = "scene"
-	MeshTaskVariation       MeshTask = "variation"
-	MeshTaskEdit            MeshTask = "edit"
-	MeshTaskUpscale         MeshTask = "upscale"
+	MeshTaskSplatToMesh      MeshTask = "splat2m"
+	MeshTaskInpaint          MeshTask = "inpaint"
+	MeshTaskImageToTexture   MeshTask = "img2tex"
+	MeshTaskStyle            MeshTask = "style"
+	MeshTaskTexture          MeshTask = "texture"
+	MeshTaskPBR              MeshTask = "pbr"
+	MeshTaskUV               MeshTask = "uv"
+	MeshTaskDecimate         MeshTask = "decimate"
+	MeshTaskRetopo           MeshTask = "retopo"
+	MeshTaskRemesh           MeshTask = "remesh"
+	MeshTaskRepair           MeshTask = "repair"
+	MeshTaskSmooth           MeshTask = "smooth"
+	MeshTaskRefine           MeshTask = "refine"
+	MeshTaskSegment          MeshTask = "segment"
+	MeshTaskRig              MeshTask = "rig"
+	MeshTaskAnimate          MeshTask = "animate"
+	MeshTaskRetarget         MeshTask = "retarget"
+	MeshTaskBake             MeshTask = "bake"
+	MeshTaskScene            MeshTask = "scene"
+	MeshTaskVariation        MeshTask = "variation"
+	MeshTaskEdit             MeshTask = "edit"
+	MeshTaskUpscale          MeshTask = "upscale"
 )
 
 // MeshTaskInfo describes a task and its required inputs.
 type MeshTaskInfo struct {
-	Task                  MeshTask
-	Description           string
-	RequiresPrompt        bool
-	RequiresInitMesh      bool
-	RequiresInitImage     bool
-	RequiresInitImages    bool
-	RequiresInitVideo     bool
-	RequiresInitDepth     bool
+	Task                   MeshTask
+	Description            string
+	RequiresPrompt         bool
+	RequiresInitMesh       bool
+	RequiresInitImage      bool
+	RequiresInitImages     bool
+	RequiresInitVideo      bool
+	RequiresInitDepth      bool
 	RequiresInitPointCloud bool
-	RequiresInitSplat     bool
-	RequiresMask          bool
-	RequiresStyleImage    bool
-	RequiresTextureImage  bool
-	RequiresHighMesh      bool
-	RequiresAnimation     bool
-	RequiresTargetTris    bool
-	RequiresScale         bool
+	RequiresInitSplat      bool
+	RequiresMask           bool
+	RequiresStyleImage     bool
+	RequiresTextureImage   bool
+	RequiresHighMesh       bool
+	RequiresAnimation      bool
+	RequiresTargetTris     bool
+	RequiresScale          bool
 }
 
 // AllInferrableMeshTasks returns mesh tasks that can be selected automatically from inputs.
@@ -155,38 +155,38 @@ func (t MeshTask) Info() *MeshTaskInfo {
 
 // MeshTaskInputs holds CLI fields used to infer a mesh task implicitly.
 type MeshTaskInputs struct {
-	Prompt           string
-	MeshPath         string
-	HighMeshPath     string
-	ImagePath        string
-	Images           []string
-	VideoPath        string
-	DepthPath        string
-	PointCloudPath   string
-	SplatPath        string
-	MaskPath         string
-	StyleImagePath   string
-	TextureImagePath string
-	AnimationPath    string
-	TargetTris       int
-	TargetTrisSet    bool
-	RetopoRequested  bool
-	RemeshRequested  bool
-	RepairRequested  bool
-	SmoothRequested  bool
-	RefineRequested  bool
-	SegmentRequested bool
-	RigRequested     bool
-	AnimateRequested bool
-	RetargetRequested bool
-	UVRequested       bool
-	PBRRequested      bool
-	SceneRequested    bool
+	Prompt             string
+	MeshPath           string
+	HighMeshPath       string
+	ImagePath          string
+	Images             []string
+	VideoPath          string
+	DepthPath          string
+	PointCloudPath     string
+	SplatPath          string
+	MaskPath           string
+	StyleImagePath     string
+	TextureImagePath   string
+	AnimationPath      string
+	TargetTris         int
+	TargetTrisSet      bool
+	RetopoRequested    bool
+	RemeshRequested    bool
+	RepairRequested    bool
+	SmoothRequested    bool
+	RefineRequested    bool
+	SegmentRequested   bool
+	RigRequested       bool
+	AnimateRequested   bool
+	RetargetRequested  bool
+	UVRequested        bool
+	PBRRequested       bool
+	SceneRequested     bool
 	VariationRequested bool
-	EditRequested     bool
-	UpscaleRequested  bool
-	Scale             float32
-	ScaleSet          bool
+	EditRequested      bool
+	UpscaleRequested   bool
+	Scale              float32
+	ScaleSet           bool
 }
 
 // InferMeshTask selects a mesh task from provided inputs when --task is omitted.

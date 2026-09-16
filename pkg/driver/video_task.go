@@ -9,10 +9,10 @@ import (
 type VideoTask string
 
 const (
-	VideoTaskGenerate    VideoTask = "generate"
+	VideoTaskGenerate     VideoTask = "generate"
 	VideoTaskImageToVideo VideoTask = "i2v"
-	VideoTaskInterpolate VideoTask = "interpolate"
-	VideoTaskScale       VideoTask = "scale"
+	VideoTaskInterpolate  VideoTask = "interpolate"
+	VideoTaskScale        VideoTask = "scale"
 )
 
 // VideoTaskInfo describes a task and its required inputs.

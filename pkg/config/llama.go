@@ -3,37 +3,37 @@ package config
 import "fmt"
 
 const (
-	defaultLlamaServerBinRel     = "../driver/llama/vendor/llama/llama-server"
-	defaultLlamaModelsDirRel     = "../driver/llama/models"
-	defaultLlamaHost             = "127.0.0.1"
-	defaultLlamaPort             = 8080
-	defaultOllamaAPI             = "http://127.0.0.1:11434"
+	defaultLlamaServerBinRel      = "../driver/llama/vendor/llama/llama-server"
+	defaultLlamaModelsDirRel      = "../driver/llama/models"
+	defaultLlamaHost              = "127.0.0.1"
+	defaultLlamaPort              = 8080
+	defaultOllamaAPI              = "http://127.0.0.1:11434"
 	defaultLlamaStartupTimeoutSec = 600
 )
 
 // LlamaConfig holds settings for the llama.cpp driver.
 type LlamaConfig struct {
-	ServerBin     string `yaml:"server_bin,omitempty"`
-	ServerRunAs   string `yaml:"server_run_as,omitempty"`
-	ModelsDir     string `yaml:"models_dir,omitempty"`
-	DefaultModel  string `yaml:"default_model,omitempty"`
-	InferenceHost string `yaml:"inference_host,omitempty"`
-	InferencePort         int `yaml:"inference_port,omitempty"`
-	StartupTimeoutSeconds int `yaml:"startup_timeout_seconds,omitempty"`
-	GRPCAddr              string `yaml:"grpc_addr,omitempty"`
-	DriverBin     string `yaml:"driver_bin,omitempty"`
-	AutoStartDriver *bool `yaml:"auto_start_driver,omitempty"`
-	OllamaAPI     string   `yaml:"ollama_api,omitempty"`
-	OllamaThink   *bool    `yaml:"ollama_think,omitempty"`
-	UseOllamaAPI  *bool    `yaml:"use_ollama_api,omitempty"`
-	ExtraArgs     []string `yaml:"extra_args,omitempty"`
+	ServerBin             string   `yaml:"server_bin,omitempty"`
+	ServerRunAs           string   `yaml:"server_run_as,omitempty"`
+	ModelsDir             string   `yaml:"models_dir,omitempty"`
+	DefaultModel          string   `yaml:"default_model,omitempty"`
+	InferenceHost         string   `yaml:"inference_host,omitempty"`
+	InferencePort         int      `yaml:"inference_port,omitempty"`
+	StartupTimeoutSeconds int      `yaml:"startup_timeout_seconds,omitempty"`
+	GRPCAddr              string   `yaml:"grpc_addr,omitempty"`
+	DriverBin             string   `yaml:"driver_bin,omitempty"`
+	AutoStartDriver       *bool    `yaml:"auto_start_driver,omitempty"`
+	OllamaAPI             string   `yaml:"ollama_api,omitempty"`
+	OllamaThink           *bool    `yaml:"ollama_think,omitempty"`
+	UseOllamaAPI          *bool    `yaml:"use_ollama_api,omitempty"`
+	ExtraArgs             []string `yaml:"extra_args,omitempty"`
 }
 
 // DefaultLlamaConfig returns built-in defaults (no file required).
 func DefaultLlamaConfig() LlamaConfig {
 	return LlamaConfig{
-		ServerBin:     defaultLlamaServerBinRel,
-		ModelsDir:     defaultLlamaModelsDirRel,
+		ServerBin:             defaultLlamaServerBinRel,
+		ModelsDir:             defaultLlamaModelsDirRel,
 		InferenceHost:         defaultLlamaHost,
 		InferencePort:         defaultLlamaPort,
 		StartupTimeoutSeconds: defaultLlamaStartupTimeoutSec,

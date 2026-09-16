@@ -14,8 +14,8 @@ import (
 	apidriver "github.com/coditary/wuji-core/pkg/driver/api"
 	"github.com/coditary/wuji-core/pkg/driver/dummy"
 	ffmpegdrv "github.com/coditary/wuji-core/pkg/driver/ffmpeg"
-	localdrv "github.com/coditary/wuji-core/pkg/driver/local"
 	grpcdriver "github.com/coditary/wuji-core/pkg/driver/grpc"
+	localdrv "github.com/coditary/wuji-core/pkg/driver/local"
 	"github.com/coditary/wuji-core/pkg/scheduler"
 )
 

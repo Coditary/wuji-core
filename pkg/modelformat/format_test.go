@@ -26,3 +26,12 @@ func TestIsKnownRejectsUnknown(t *testing.T) {
 		t.Fatal("expected unknown format to be rejected")
 	}
 }
+
+func TestTypeStringAndDescription(t *testing.T) {
+	if modelformat.GGUF.String() != "gguf" {
+		t.Fatalf("String() = %q", modelformat.GGUF.String())
+	}
+	if modelformat.Type("unknown").Description() != "" {
+		t.Fatal("expected empty description for unknown format")
+	}
+}

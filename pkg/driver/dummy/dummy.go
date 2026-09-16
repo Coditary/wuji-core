@@ -48,9 +48,9 @@ func (d *Driver) Info() driver.Info {
 			capability.Data,
 			capability.RAG,
 		},
-		ImageTasks: driver.AllImageTasks(),
-		VideoTasks: driver.AllVideoTasks(),
-		MeshTasks:  driver.AllMeshTasks(),
+		ImageTasks:   driver.AllImageTasks(),
+		VideoTasks:   driver.AllVideoTasks(),
+		MeshTasks:    driver.AllMeshTasks(),
 		DatasetTasks: driver.AllDatasetTasks(),
 		AudioTasks:   driver.AllAudioTasks(),
 		VoiceTasks:   driver.AllVoiceTasks(),
@@ -75,9 +75,9 @@ func (d *Driver) Info() driver.Info {
 			capability.Mesh: {
 				modelformat.SafeTensors, modelformat.ONNX,
 			},
-			capability.VoiceCloning:    {modelformat.SafeTensors, modelformat.LoRA},
-			capability.Training:        {modelformat.GGUF, modelformat.HuggingFace, modelformat.SafeTensors, modelformat.LoRA},
-			capability.DatasetMgmt:     {},
+			capability.VoiceCloning: {modelformat.SafeTensors, modelformat.LoRA},
+			capability.Training:     {modelformat.GGUF, modelformat.HuggingFace, modelformat.SafeTensors, modelformat.LoRA},
+			capability.DatasetMgmt:  {},
 		},
 		Remote: false,
 	}
@@ -545,7 +545,7 @@ func (d *Driver) IngestDataset(_ context.Context, req driver.DatasetIngestReques
 		ref = req.DatasetID
 	}
 	return &driver.DatasetIngestResult{
-		Message: fmt.Sprintf("ingested %q into dataset %q", req.SourcePath, ref),
+		Message:    fmt.Sprintf("ingested %q into dataset %q", req.SourcePath, ref),
 		FilesAdded: 1, BytesAdded: 4096, VersionID: "v2",
 	}, nil
 }

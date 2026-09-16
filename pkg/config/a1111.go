@@ -6,64 +6,64 @@ import (
 )
 
 const (
-	defaultA1111Host              = "127.0.0.1"
-	defaultA1111Port              = 7860
-	defaultA1111TimeoutSeconds    = 600
-	defaultA1111OutputDir         = "/tmp/wuji/a1111"
-	defaultA1111VideoOutputDir    = "/tmp/wuji/a1111/video"
-	defaultA1111DefaultVideoModel = "t2v"
+	defaultA1111Host                = "127.0.0.1"
+	defaultA1111Port                = 7860
+	defaultA1111TimeoutSeconds      = 600
+	defaultA1111OutputDir           = "/tmp/wuji/a1111"
+	defaultA1111VideoOutputDir      = "/tmp/wuji/a1111/video"
+	defaultA1111DefaultVideoModel   = "t2v"
 	defaultA1111DefaultInpaintModel = "sd-v1-5-inpainting.ckpt"
-	defaultA1111VideoWidth        = 256
-	defaultA1111VideoHeight       = 256
-	defaultA1111VideoSteps        = 30
-	defaultA1111VideoCFGScale     = 17
-	defaultA1111VideoSampler      = "DDIM_Gaussian"
-	defaultA1111VideoFPS          = 15
+	defaultA1111VideoWidth          = 256
+	defaultA1111VideoHeight         = 256
+	defaultA1111VideoSteps          = 30
+	defaultA1111VideoCFGScale       = 17
+	defaultA1111VideoSampler        = "DDIM_Gaussian"
+	defaultA1111VideoFPS            = 15
 )
 
 // A1111Config holds settings for the Automatic1111 image driver.
 type A1111Config struct {
-	Host              string `yaml:"host,omitempty"`
-	Port              int    `yaml:"port,omitempty"`
-	APIBase           string `yaml:"api_base,omitempty"`
-	APIKey            string `yaml:"api_key,omitempty"`
-	AuthUser          string `yaml:"auth_user,omitempty"`
-	AuthPass          string `yaml:"auth_pass,omitempty"`
-	DefaultModel       string `yaml:"default_model,omitempty"`
+	Host                string `yaml:"host,omitempty"`
+	Port                int    `yaml:"port,omitempty"`
+	APIBase             string `yaml:"api_base,omitempty"`
+	APIKey              string `yaml:"api_key,omitempty"`
+	AuthUser            string `yaml:"auth_user,omitempty"`
+	AuthPass            string `yaml:"auth_pass,omitempty"`
+	DefaultModel        string `yaml:"default_model,omitempty"`
 	DefaultInpaintModel string `yaml:"default_inpaint_model,omitempty"`
-	DefaultVideoModel  string `yaml:"default_video_model,omitempty"`
-	GRPCAddr          string `yaml:"grpc_addr,omitempty"`
-	DriverBin         string `yaml:"driver_bin,omitempty"`
-	WebUIDir          string `yaml:"webui_dir,omitempty"`
-	TimeoutSeconds    int    `yaml:"timeout_seconds,omitempty"`
-	OutputDir         string `yaml:"output_dir,omitempty"`
-	VideoOutputDir    string `yaml:"video_output_dir,omitempty"`
-	VideoWidth        int    `yaml:"video_width,omitempty"`
-	VideoHeight       int    `yaml:"video_height,omitempty"`
-	VideoSteps        int    `yaml:"video_steps,omitempty"`
-	VideoCFGScale     int    `yaml:"video_cfg_scale,omitempty"`
-	VideoSampler      string `yaml:"video_sampler,omitempty"`
-	VideoFPS          int    `yaml:"video_fps,omitempty"`
-	AutoStartDriver   *bool  `yaml:"auto_start_driver,omitempty"`
-	ManageServer      *bool  `yaml:"manage_server,omitempty"`
+	DefaultVideoModel   string `yaml:"default_video_model,omitempty"`
+	GRPCAddr            string `yaml:"grpc_addr,omitempty"`
+	DriverBin           string `yaml:"driver_bin,omitempty"`
+	WebUIDir            string `yaml:"webui_dir,omitempty"`
+	TimeoutSeconds      int    `yaml:"timeout_seconds,omitempty"`
+	OutputDir           string `yaml:"output_dir,omitempty"`
+	VideoOutputDir      string `yaml:"video_output_dir,omitempty"`
+	VideoWidth          int    `yaml:"video_width,omitempty"`
+	VideoHeight         int    `yaml:"video_height,omitempty"`
+	VideoSteps          int    `yaml:"video_steps,omitempty"`
+	VideoCFGScale       int    `yaml:"video_cfg_scale,omitempty"`
+	VideoSampler        string `yaml:"video_sampler,omitempty"`
+	VideoFPS            int    `yaml:"video_fps,omitempty"`
+	AutoStartDriver     *bool  `yaml:"auto_start_driver,omitempty"`
+	ManageServer        *bool  `yaml:"manage_server,omitempty"`
 }
 
 // DefaultA1111Config returns built-in defaults (no file required).
 func DefaultA1111Config() A1111Config {
 	return A1111Config{
-		Host:              defaultA1111Host,
-		Port:              defaultA1111Port,
-		TimeoutSeconds:    defaultA1111TimeoutSeconds,
-		OutputDir:         defaultA1111OutputDir,
-		VideoOutputDir:    defaultA1111VideoOutputDir,
+		Host:                defaultA1111Host,
+		Port:                defaultA1111Port,
+		TimeoutSeconds:      defaultA1111TimeoutSeconds,
+		OutputDir:           defaultA1111OutputDir,
+		VideoOutputDir:      defaultA1111VideoOutputDir,
 		DefaultVideoModel:   defaultA1111DefaultVideoModel,
 		DefaultInpaintModel: defaultA1111DefaultInpaintModel,
-		VideoWidth:        defaultA1111VideoWidth,
-		VideoHeight:       defaultA1111VideoHeight,
-		VideoSteps:        defaultA1111VideoSteps,
-		VideoCFGScale:     defaultA1111VideoCFGScale,
-		VideoSampler:      defaultA1111VideoSampler,
-		VideoFPS:          defaultA1111VideoFPS,
+		VideoWidth:          defaultA1111VideoWidth,
+		VideoHeight:         defaultA1111VideoHeight,
+		VideoSteps:          defaultA1111VideoSteps,
+		VideoCFGScale:       defaultA1111VideoCFGScale,
+		VideoSampler:        defaultA1111VideoSampler,
+		VideoFPS:            defaultA1111VideoFPS,
 	}
 }
 
