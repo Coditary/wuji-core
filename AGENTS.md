@@ -12,7 +12,7 @@ Wuji Core is the backend daemon and orchestration layer. The CLI frontend lives 
 | `pkg/driver/` | Driver interfaces, types, proto mapping, built-in drivers |
 | `internal/server/grpc/` | Core gRPC server — driver registry + WujiCore API |
 | `api/proto/v1/driver.proto` | gRPC API contract |
-| `../driver/` | External driver plugins (sibling of wuji-core) |
+| `../../plugins/wuji/` | External driver plugins |
 
 ## Architecture
 
@@ -56,9 +56,9 @@ Each driver advertises a subset. The core uses `driver.As[T](d, cap)` to call th
 | ID | Type | Location | Capabilities | Notes |
 |----|------|----------|--------------|-------|
 | `dummy` | built-in + gRPC | `internal/driver/dummy/`, `cmd/wuji-driver-dummy/` | all | Placeholder responses for every CLI command |
-| `echo` | gRPC | `../driver/echo/` | `text` | Echoes prompts; no ML deps; default unix socket |
-| `llama` | gRPC | `../driver/llama/` | `text` | llama.cpp or Ollama; config via `wuji config` |
-| `vllm` | gRPC | `../driver/vllm/` | `text` | Starts `vllm serve` automatically; default unix socket |
+| `echo` | gRPC | `../../plugins/wuji/echo/` | `text` | Echoes prompts; no ML deps; default unix socket |
+| `llama` | gRPC | `../../plugins/wuji/llama/` | `text` | llama.cpp or Ollama; config via `wuji config` |
+| `vllm` | gRPC | `../../plugins/wuji/vllm/` | `text` | Starts `vllm serve` automatically; default unix socket |
 
 ### Building
 
@@ -118,7 +118,7 @@ make build-drivers
 ./bin/wuji generate text "Hallo" -d vllm
 ```
 
-No per-driver config files under `../driver/vllm/` — defaults apply out of the box. Override via `wuji config set vllm <key> <value>`, CLI flags on `wuji-driver-vllm`, or env vars (`VLLM_MODEL`, `VLLM_BIN`, …).
+No per-driver config files under `../../plugins/wuji/vllm/` — defaults apply out of the box. Override via `wuji config set vllm <key> <value>`, CLI flags on `wuji-driver-vllm`, or env vars (`VLLM_MODEL`, `VLLM_BIN`, …).
 
 ## Writing a new driver
 
@@ -133,7 +133,7 @@ grpcdriver.Serve(myDriver, grpcdriver.HostOptions{
 })
 ```
 
-4. Add a `Makefile` under `../driver/<name>/` and register it in root `Makefile` `build-drivers`.
+4. Add a `Makefile` under `../../plugins/wuji/<name>/` and register it in root `Makefile` `build-drivers`.
 
 Each driver declares **capabilities** (text, image, …) and **supported source formats** per capability (gguf, safetensors, huggingface, ollama, …) in `Info().FormatSupport`. Remote drivers expose this via gRPC `DriverMetadata.format_support`.
 
@@ -344,7 +344,7 @@ drivers:
     startup_timeout_seconds: 300
   llama:
     default_model: my-model.gguf
-    models_dir: ../driver/llama/models
+    models_dir: ../../plugins/wuji/llama/models
     inference_port: 8080
     ollama_api: http://127.0.0.1:11434
 ```

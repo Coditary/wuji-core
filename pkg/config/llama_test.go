@@ -28,7 +28,7 @@ func TestDefaultLlamaWithoutFile(t *testing.T) {
 	if llama.InferenceHost != "127.0.0.1" || llama.InferencePort != 8080 {
 		t.Fatalf("unexpected defaults: %+v", llama)
 	}
-	if llama.ServerBin != "../driver/llama/vendor/llama/llama-server" {
+	if llama.ServerBin != "../../plugins/wuji/llama/vendor/llama/llama-server" {
 		t.Fatalf("unexpected server_bin: %s", llama.ServerBin)
 	}
 }

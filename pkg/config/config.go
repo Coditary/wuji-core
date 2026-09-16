@@ -420,7 +420,7 @@ func findProjectRoot() (string, error) {
 		}
 		parent := filepath.Dir(dir)
 		if parent == dir {
-			return "", fmt.Errorf("could not find project root (no go.mod); set WUJI_ROOT to your wuji-core checkout (e.g. ~/Dev/Coditary-Bundle/wuji-core)")
+			return "", fmt.Errorf("could not find project root (no go.mod); set WUJI_ROOT to your wuji-core checkout (e.g. ~/Dev/Coditary/core/wuji-core)")
 		}
 		dir = parent
 	}
@@ -434,9 +434,16 @@ func siblingCoreRoot(dir string) string {
 	if !strings.Contains(string(mod), "module github.com/coditary/wuji-ai") {
 		return ""
 	}
-	sibling := filepath.Join(filepath.Dir(dir), "wuji-core")
-	if _, err := os.Stat(filepath.Join(sibling, ".wuji")); err != nil {
-		return ""
+	parent := filepath.Dir(dir)
+	candidates := []string{
+		filepath.Join(parent, "wuji-core"),
+		filepath.Join(parent, "..", "core", "wuji-core"),
+		filepath.Join(parent, "..", "..", "Coditary", "core", "wuji-core"),
 	}
-	return sibling
+	for _, sibling := range candidates {
+		if _, err := os.Stat(filepath.Join(sibling, ".wuji")); err == nil {
+			return sibling
+		}
+	}
+	return ""
 }

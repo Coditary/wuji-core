@@ -3,8 +3,8 @@ package config
 import "fmt"
 
 const (
-	defaultLlamaServerBinRel      = "../driver/llama/vendor/llama/llama-server"
-	defaultLlamaModelsDirRel      = "../driver/llama/models"
+	defaultLlamaServerBinRel      = "../../plugins/wuji/llama/vendor/llama/llama-server"
+	defaultLlamaModelsDirRel      = "../../plugins/wuji/llama/models"
 	defaultLlamaHost              = "127.0.0.1"
 	defaultLlamaPort              = 8080
 	defaultOllamaAPI              = "http://127.0.0.1:11434"

@@ -2,10 +2,10 @@
 
 Backend daemon and driver orchestration for Wuji.
 
-## Layout
+## Layout (Coditary monorepo)
 
 ```
-wuji-core/
+core/wuji-core/           # this repo
   cmd/wuji-core/          # daemon binary
   cmd/wuji-driver-*/      # built-in driver binaries
   pkg/                    # libraries (also used by wuji-ai CLI)
@@ -13,8 +13,8 @@ wuji-core/
   api/proto/              # protobuf contracts
   .wuji/                  # runtime config, sockets, logs
 
-../driver/                # external driver plugins (llama, vllm, …)
-../wuji-ai/               # CLI frontend
+../../plugins/wuji/       # external driver plugins (llama, vllm, …)
+../../apps/wuji-ai/       # CLI frontend
 ```
 
 ## Build
