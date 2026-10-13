@@ -321,8 +321,9 @@ func (c *Core) GenerateImage(ctx context.Context, driverID string, req driver.Im
 }
 
 func (c *Core) GenerateVideo(ctx context.Context, driverID string, req driver.VideoRequest) (*driver.VideoResponse, error) {
-	return scheduleGenerate(c, ctx, driverID, req.Model, capability.VideoGeneration, func(ctx context.Context) (*driver.VideoResponse, error) {
-		d, err := c.resolveForCapability(driverID, capability.VideoGeneration)
+	resolvedID := c.ResolveVideoDriverID(driverID, req)
+	return scheduleGenerate(c, ctx, resolvedID, req.Model, capability.VideoGeneration, func(ctx context.Context) (*driver.VideoResponse, error) {
+		d, err := c.resolve(resolvedID)
 		if err != nil {
 			return nil, err
 		}
@@ -331,8 +332,9 @@ func (c *Core) GenerateVideo(ctx context.Context, driverID string, req driver.Vi
 }
 
 func (c *Core) GenerateAudio(ctx context.Context, driverID string, req driver.AudioRequest) (*driver.AudioResponse, error) {
-	return scheduleGenerate(c, ctx, driverID, req.Model, capability.AudioGeneration, func(ctx context.Context) (*driver.AudioResponse, error) {
-		d, err := c.resolveForCapability(driverID, capability.AudioGeneration)
+	resolvedID := c.ResolveAudioDriverID(driverID, &req)
+	return scheduleGenerate(c, ctx, resolvedID, req.Model, capability.AudioGeneration, func(ctx context.Context) (*driver.AudioResponse, error) {
+		d, err := c.resolve(resolvedID)
 		if err != nil {
 			return nil, err
 		}

@@ -15,7 +15,7 @@ const (
 	DriverName = "FFmpeg Driver"
 )
 
-// Driver extracts audio tracks from video containers via ffmpeg.
+// Driver provides video2audio extraction and ffmpeg-based video transforms.
 type Driver struct {
 	FFmpegBin string
 }
@@ -26,11 +26,18 @@ func New() *Driver {
 
 func (d *Driver) Info() driver.Info {
 	return driver.Info{
-		ID:           DriverID,
-		Name:         DriverName,
-		Version:      "0.1.0",
-		Description:  "Extracts audio from video files using ffmpeg (video2audio).",
-		Capabilities: []capability.Type{capability.Video2Audio},
+		ID:          DriverID,
+		Name:        DriverName,
+		Version:     "0.2.0",
+		Description: "Video transforms via ffmpeg: audio extraction (video2audio), frame interpolation, and scaling.",
+		Capabilities: []capability.Type{
+			capability.Video2Audio,
+			capability.VideoGeneration,
+		},
+		VideoTasks: []driver.VideoTask{
+			driver.VideoTaskInterpolate,
+			driver.VideoTaskScale,
+		},
 	}
 }
 
@@ -52,6 +59,40 @@ func (d *Driver) VideoToAudio(ctx context.Context, req driver.Video2AudioRequest
 		return nil, err
 	}
 	return &driver.Video2AudioResponse{AudioPath: audioPath, Temporary: true}, nil
+}
+
+func (d *Driver) InterpolateVideo(ctx context.Context, req driver.VideoInterpolateRequest) (*driver.VideoResponse, error) {
+	videoPath := strings.TrimSpace(req.InputVideoPath)
+	if videoPath == "" {
+		return nil, fmt.Errorf("input video path is required for interpolation")
+	}
+	path, meta, err := media.InterpolateVideo(ctx, d.FFmpegBin, videoPath, req.TargetFPS)
+	if err != nil {
+		return nil, err
+	}
+	return &driver.VideoResponse{
+		Path:     path,
+		Duration: meta.Duration,
+		Frames:   meta.Frames,
+		FPS:      meta.FPS,
+	}, nil
+}
+
+func (d *Driver) UpscaleVideo(ctx context.Context, req driver.VideoUpscaleRequest) (*driver.VideoResponse, error) {
+	videoPath := strings.TrimSpace(req.InputVideoPath)
+	if videoPath == "" {
+		return nil, fmt.Errorf("input video path is required for scale")
+	}
+	path, meta, err := media.ScaleVideo(ctx, d.FFmpegBin, videoPath, req.Scale)
+	if err != nil {
+		return nil, err
+	}
+	return &driver.VideoResponse{
+		Path:     path,
+		Duration: meta.Duration,
+		Frames:   meta.Frames,
+		FPS:      meta.FPS,
+	}, nil
 }
 
 func (d *Driver) Close() error {

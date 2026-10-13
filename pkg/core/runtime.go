@@ -27,7 +27,9 @@ type Runtime interface {
 	TrainVoice(ctx context.Context, driverID string, req driver.VoiceTrainRequest) (*driver.TrainResponse, error)
 	RunRAG(ctx context.Context, driverID string, req driver.RAGRequest) (data.DataShape, error)
 	ProduceData(ctx context.Context, driverID string, req driver.DataRequest) (data.DataShape, error)
+	ProduceDecision(ctx context.Context, driverID string, req driver.DecisionRequest) (*driver.DecisionResponse, error)
 	ConnectRemote(ctx context.Context, endpoint string, persist bool) error
+	EnsureDriver(ctx context.Context, driverID string) error
 	ListDrivers() []driver.Info
 	ResourceStatus() (scheduler.PersistedState, error)
 	ResourcesConfig() config.EffectiveResources

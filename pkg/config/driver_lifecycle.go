@@ -2,18 +2,17 @@ package config
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"strings"
 )
-
-var knownRemoteDriverIDs = []string{"a1111", "vllm", "llama", "echo", "raggo", "gorag"}
 
 // DriverIDForEndpoint maps a gRPC endpoint back to a driver ID.
 func (c *Config) DriverIDForEndpoint(endpoint string) string {
 	if id := driverIDFromSocketEndpoint(endpoint); id != "" {
 		return id
 	}
-	for _, id := range knownRemoteDriverIDs {
+	for _, id := range c.configuredDriverIDs() {
 		if c.DriverGRPCAddr(id) == endpoint {
 			return id
 		}
@@ -33,6 +32,7 @@ func driverIDFromSocketEndpoint(endpoint string) string {
 	}
 	return strings.TrimSuffix(base, ".sock")
 }
+
 func (c *Config) AutoStartDriverEnabled(driverID string) bool {
 	if c == nil {
 		return false
@@ -55,8 +55,6 @@ func (c *Config) AutoStartDriverEnabled(driverID string) bool {
 			return *c.Drivers.Llama.AutoStartDriver
 		}
 		return true
-	case "echo":
-		return true
 	case "raggo":
 		if c.Drivers.Raggo != nil && c.Drivers.Raggo.AutoStartDriver != nil {
 			return *c.Drivers.Raggo.AutoStartDriver
@@ -73,6 +71,12 @@ func (c *Config) AutoStartDriverEnabled(driverID string) bool {
 		}
 		return false
 	default:
+		if section := c.Drivers.Section(driverID); section != nil {
+			if section.AutoStartDriver != nil {
+				return *section.AutoStartDriver
+			}
+			return true
+		}
 		return false
 	}
 }
@@ -95,6 +99,9 @@ func (c *Config) DriverBinaryPath(driverID string) string {
 	if c != nil && c.Root != "" {
 		root = c.Root
 	}
+	if section := c.Drivers.Section(driverID); section != nil && section.DriverBin != "" {
+		return section.DriverBin
+	}
 	switch driverID {
 	case "a1111":
 		if c != nil && c.Drivers.A1111 != nil && c.Drivers.A1111.DriverBin != "" {
@@ -108,11 +115,25 @@ func (c *Config) DriverBinaryPath(driverID string) string {
 		if c != nil && c.Drivers.Llama != nil && c.Drivers.Llama.DriverBin != "" {
 			return c.Drivers.Llama.DriverBin
 		}
-	case "echo":
-		return filepath.Join(root, "bin", "wuji-driver-echo")
+	case "raggo":
+		if c != nil && c.Drivers.Raggo != nil && c.Drivers.Raggo.DriverBin != "" {
+			return c.Drivers.Raggo.DriverBin
+		}
+	case "gorag":
+		if c != nil && c.Drivers.Gorag != nil && c.Drivers.Gorag.DriverBin != "" {
+			return c.Drivers.Gorag.DriverBin
+		}
 	}
-	return filepath.Join(root, "bin", fmt.Sprintf("wuji-driver-%s", driverID))
+	if reqpackPath := ReqpackDriverBinaryPath(driverID); reqpackPath != "" {
+		return reqpackPath
+	}
+	local := filepath.Join(root, "bin", fmt.Sprintf("wuji-driver-%s", driverID))
+	if _, err := os.Stat(local); err == nil {
+		return local
+	}
+	return local
 }
+
 func ParseHostPort(addr string) (host string, port int, err error) {
 	addr = strings.TrimSpace(addr)
 	if addr == "" {

@@ -191,6 +191,11 @@ type DataProducer interface {
 	ProduceData(ctx context.Context, req DataRequest) (data.DataShape, error)
 }
 
+// DecisionProducer runs typed decision tasks (choice, score, noul).
+type DecisionProducer interface {
+	Decide(ctx context.Context, req DecisionRequest) (*DecisionResponse, error)
+}
+
 // RAGProducer runs RAG tasks and returns WDD output (used by remote drivers).
 type RAGProducer interface {
 	ProduceRAG(ctx context.Context, req RAGRequest) (data.DataShape, error)

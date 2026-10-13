@@ -236,6 +236,7 @@ const (
 	DriverService_CreateDatasetVersion_FullMethodName = "/wuji.v1.DriverService/CreateDatasetVersion"
 	DriverService_ListDatasetVersions_FullMethodName  = "/wuji.v1.DriverService/ListDatasetVersions"
 	DriverService_ProduceData_FullMethodName          = "/wuji.v1.DriverService/ProduceData"
+	DriverService_ProduceDecision_FullMethodName      = "/wuji.v1.DriverService/ProduceDecision"
 	DriverService_RunRAG_FullMethodName               = "/wuji.v1.DriverService/RunRAG"
 )
 
@@ -282,6 +283,7 @@ type DriverServiceClient interface {
 	CreateDatasetVersion(ctx context.Context, in *CreateDatasetVersionRequest, opts ...grpc.CallOption) (*DatasetVersionResponse, error)
 	ListDatasetVersions(ctx context.Context, in *ListDatasetVersionsRequest, opts ...grpc.CallOption) (*ListDatasetVersionsResponse, error)
 	ProduceData(ctx context.Context, in *ProduceDataRequest, opts ...grpc.CallOption) (*ProduceDataResponse, error)
+	ProduceDecision(ctx context.Context, in *ProduceDecisionRequest, opts ...grpc.CallOption) (*ProduceDecisionResponse, error)
 	RunRAG(ctx context.Context, in *RAGRequestMsg, opts ...grpc.CallOption) (*RAGResponseMsg, error)
 }
 
@@ -692,6 +694,16 @@ func (c *driverServiceClient) ProduceData(ctx context.Context, in *ProduceDataRe
 	return out, nil
 }
 
+func (c *driverServiceClient) ProduceDecision(ctx context.Context, in *ProduceDecisionRequest, opts ...grpc.CallOption) (*ProduceDecisionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ProduceDecisionResponse)
+	err := c.cc.Invoke(ctx, DriverService_ProduceDecision_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *driverServiceClient) RunRAG(ctx context.Context, in *RAGRequestMsg, opts ...grpc.CallOption) (*RAGResponseMsg, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(RAGResponseMsg)
@@ -745,6 +757,7 @@ type DriverServiceServer interface {
 	CreateDatasetVersion(context.Context, *CreateDatasetVersionRequest) (*DatasetVersionResponse, error)
 	ListDatasetVersions(context.Context, *ListDatasetVersionsRequest) (*ListDatasetVersionsResponse, error)
 	ProduceData(context.Context, *ProduceDataRequest) (*ProduceDataResponse, error)
+	ProduceDecision(context.Context, *ProduceDecisionRequest) (*ProduceDecisionResponse, error)
 	RunRAG(context.Context, *RAGRequestMsg) (*RAGResponseMsg, error)
 	mustEmbedUnimplementedDriverServiceServer()
 }
@@ -872,6 +885,9 @@ func (UnimplementedDriverServiceServer) ListDatasetVersions(context.Context, *Li
 }
 func (UnimplementedDriverServiceServer) ProduceData(context.Context, *ProduceDataRequest) (*ProduceDataResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ProduceData not implemented")
+}
+func (UnimplementedDriverServiceServer) ProduceDecision(context.Context, *ProduceDecisionRequest) (*ProduceDecisionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProduceDecision not implemented")
 }
 func (UnimplementedDriverServiceServer) RunRAG(context.Context, *RAGRequestMsg) (*RAGResponseMsg, error) {
 	return nil, status.Error(codes.Unimplemented, "method RunRAG not implemented")
@@ -1592,6 +1608,24 @@ func _DriverService_ProduceData_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DriverService_ProduceDecision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProduceDecisionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DriverServiceServer).ProduceDecision(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DriverService_ProduceDecision_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DriverServiceServer).ProduceDecision(ctx, req.(*ProduceDecisionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DriverService_RunRAG_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RAGRequestMsg)
 	if err := dec(in); err != nil {
@@ -1768,6 +1802,10 @@ var DriverService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ProduceData",
 			Handler:    _DriverService_ProduceData_Handler,
+		},
+		{
+			MethodName: "ProduceDecision",
+			Handler:    _DriverService_ProduceDecision_Handler,
 		},
 		{
 			MethodName: "RunRAG",

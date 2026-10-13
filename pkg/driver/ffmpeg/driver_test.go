@@ -22,4 +22,13 @@ func TestFFmpegDriverCapability(t *testing.T) {
 	if !driver.HasCapability(d, capability.Video2Audio) {
 		t.Fatal("ffmpeg driver should advertise video2audio")
 	}
+	if !driver.HasCapability(d, capability.VideoGeneration) {
+		t.Fatal("ffmpeg driver should advertise video generation")
+	}
+	if !driver.HasVideoTask(d, driver.VideoTaskInterpolate) {
+		t.Fatal("ffmpeg driver should support interpolate")
+	}
+	if !driver.HasVideoTask(d, driver.VideoTaskScale) {
+		t.Fatal("ffmpeg driver should support scale")
+	}
 }

@@ -103,6 +103,10 @@ func (c *Config) explicitGRPCAddr(driverID string) string {
 		if c.Drivers.Gorag != nil {
 			return c.Drivers.Gorag.GRPCAddr
 		}
+	default:
+		if section := c.Drivers.Section(driverID); section != nil {
+			return section.GRPCAddr
+		}
 	}
 	return ""
 }

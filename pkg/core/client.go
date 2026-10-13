@@ -358,8 +358,25 @@ func (c *Client) ProduceData(ctx context.Context, driverID string, req driver.Da
 	return data.ParseJSONShape(wrapper.Shape)
 }
 
+func (c *Client) ProduceDecision(ctx context.Context, driverID string, req driver.DecisionRequest) (*driver.DecisionResponse, error) {
+	out, err := c.call(ctx, "ProduceDecision", map[string]any{"driver_id": driverID, "request": req})
+	if err != nil {
+		return nil, err
+	}
+	var resp driver.DecisionResponse
+	if err := json.Unmarshal(out, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
 func (c *Client) ConnectRemote(ctx context.Context, endpoint string, persist bool) error {
 	_, err := c.call(ctx, "ConnectRemote", map[string]any{"endpoint": endpoint, "persist": persist})
+	return err
+}
+
+func (c *Client) EnsureDriver(ctx context.Context, driverID string) error {
+	_, err := c.call(ctx, "EnsureDriver", map[string]any{"driver_id": driverID})
 	return err
 }
 

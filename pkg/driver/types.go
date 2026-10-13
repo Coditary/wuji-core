@@ -250,6 +250,10 @@ type AudioRequest struct {
 	Energy         float32
 	Format         string
 	Seed           *int
+	// Pipeline selects the TTS pipeline on onnx-tts (piper, kokoro).
+	Pipeline string
+	// Engine selects the TTS engine on pytorch-tts (coqui, bark, …).
+	Engine string
 
 	// Deprecated: use Task instead.
 	TaskType AudioTaskType

@@ -132,6 +132,7 @@ func AudioSpeechRequestFromProto(req *wujiv1.GenerateAudioSpeechRequest) AudioSp
 		Prompt: req.GetPrompt(), Model: req.GetModel(), Duration: req.GetDuration(), SampleRate: int(req.GetSampleRate()),
 		Voice: req.GetVoice(), Language: req.GetLanguage(), Speed: req.GetSpeed(), Pitch: int(req.GetPitch()),
 		Emotion: req.GetEmotion(), Style: req.GetStyle(), Energy: req.GetEnergy(),
+		Pipeline: req.GetPipeline(), Engine: req.GetEngine(),
 	}
 	if req.Seed != nil {
 		v := int(*req.Seed)
@@ -145,6 +146,7 @@ func AudioSpeechRequestToProto(req AudioSpeechRequest) *wujiv1.GenerateAudioSpee
 		Prompt: req.Prompt, Duration: req.Duration, Model: req.Model, SampleRate: int32(req.SampleRate),
 		Voice: req.Voice, Language: req.Language, Speed: req.Speed, Pitch: int32(req.Pitch),
 		Emotion: req.Emotion, Style: req.Style, Energy: req.Energy,
+		Pipeline: req.Pipeline, Engine: req.Engine,
 	}
 	if req.Seed != nil {
 		v := int32(*req.Seed)

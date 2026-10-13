@@ -52,6 +52,7 @@ service DriverService {
   rpc CreateDatasetVersion(CreateDatasetVersionRequest) returns (DatasetVersionResponse);
   rpc ListDatasetVersions(ListDatasetVersionsRequest) returns (ListDatasetVersionsResponse);
   rpc ProduceData(ProduceDataRequest) returns (ProduceDataResponse);
+  rpc ProduceDecision(ProduceDecisionRequest) returns (ProduceDecisionResponse);
   rpc RunRAG(RAGRequestMsg) returns (RAGResponseMsg);
 }
 
@@ -75,6 +76,9 @@ message DriverMetadata {
   repeated string mesh_tasks = 12;
   repeated string data_tasks = 13;
   repeated string rag_tasks = 14;
+  repeated string text_input_modes = 15;
+  repeated string decision_tasks = 16;
+  repeated string decision_state_inputs = 17;
 }
 
 message RegisterRequest {
@@ -484,6 +488,8 @@ message GenerateAudioSpeechRequest {
   string emotion = 10;
   string style = 11;
   float energy = 12;
+  string pipeline = 13;
+  string engine = 14;
 }
 
 message GenerateAudioResponse {
@@ -795,6 +801,21 @@ message ProduceDataResponse {
   bytes payload = 1;
   string payload_format = 2;
   string kind = 3;
+}
+
+message ProduceDecisionRequest {
+  string model = 1;
+  string text = 2;
+  string image_path = 3;
+  repeated string image_paths = 4;
+  string questions_file = 5;
+  bool use_stdin = 6;
+  string state_json = 7;
+  string questions_json = 8;
+}
+
+message ProduceDecisionResponse {
+  string payload_json = 1;
 }
 
 message RAGRequestMsg {

@@ -74,23 +74,26 @@ func (x *CapabilityFormatSupport) GetFormats() []string {
 }
 
 type DriverMetadata struct {
-	state         protoimpl.MessageState     `protogen:"open.v1"`
-	Id            string                     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Version       string                     `protobuf:"bytes,3,opt,name=version,proto3" json:"version,omitempty"`
-	Description   string                     `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	Capabilities  []string                   `protobuf:"bytes,5,rep,name=capabilities,proto3" json:"capabilities,omitempty"`
-	FormatSupport []*CapabilityFormatSupport `protobuf:"bytes,6,rep,name=format_support,json=formatSupport,proto3" json:"format_support,omitempty"`
-	ImageTasks    []string                   `protobuf:"bytes,7,rep,name=image_tasks,json=imageTasks,proto3" json:"image_tasks,omitempty"`
-	VideoTasks    []string                   `protobuf:"bytes,8,rep,name=video_tasks,json=videoTasks,proto3" json:"video_tasks,omitempty"`
-	DatasetTasks  []string                   `protobuf:"bytes,9,rep,name=dataset_tasks,json=datasetTasks,proto3" json:"dataset_tasks,omitempty"`
-	AudioTasks    []string                   `protobuf:"bytes,10,rep,name=audio_tasks,json=audioTasks,proto3" json:"audio_tasks,omitempty"`
-	VoiceTasks    []string                   `protobuf:"bytes,11,rep,name=voice_tasks,json=voiceTasks,proto3" json:"voice_tasks,omitempty"`
-	MeshTasks     []string                   `protobuf:"bytes,12,rep,name=mesh_tasks,json=meshTasks,proto3" json:"mesh_tasks,omitempty"`
-	DataTasks     []string                   `protobuf:"bytes,13,rep,name=data_tasks,json=dataTasks,proto3" json:"data_tasks,omitempty"`
-	RagTasks      []string                   `protobuf:"bytes,14,rep,name=rag_tasks,json=ragTasks,proto3" json:"rag_tasks,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state               protoimpl.MessageState     `protogen:"open.v1"`
+	Id                  string                     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                string                     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Version             string                     `protobuf:"bytes,3,opt,name=version,proto3" json:"version,omitempty"`
+	Description         string                     `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Capabilities        []string                   `protobuf:"bytes,5,rep,name=capabilities,proto3" json:"capabilities,omitempty"`
+	FormatSupport       []*CapabilityFormatSupport `protobuf:"bytes,6,rep,name=format_support,json=formatSupport,proto3" json:"format_support,omitempty"`
+	ImageTasks          []string                   `protobuf:"bytes,7,rep,name=image_tasks,json=imageTasks,proto3" json:"image_tasks,omitempty"`
+	VideoTasks          []string                   `protobuf:"bytes,8,rep,name=video_tasks,json=videoTasks,proto3" json:"video_tasks,omitempty"`
+	DatasetTasks        []string                   `protobuf:"bytes,9,rep,name=dataset_tasks,json=datasetTasks,proto3" json:"dataset_tasks,omitempty"`
+	AudioTasks          []string                   `protobuf:"bytes,10,rep,name=audio_tasks,json=audioTasks,proto3" json:"audio_tasks,omitempty"`
+	VoiceTasks          []string                   `protobuf:"bytes,11,rep,name=voice_tasks,json=voiceTasks,proto3" json:"voice_tasks,omitempty"`
+	MeshTasks           []string                   `protobuf:"bytes,12,rep,name=mesh_tasks,json=meshTasks,proto3" json:"mesh_tasks,omitempty"`
+	DataTasks           []string                   `protobuf:"bytes,13,rep,name=data_tasks,json=dataTasks,proto3" json:"data_tasks,omitempty"`
+	RagTasks            []string                   `protobuf:"bytes,14,rep,name=rag_tasks,json=ragTasks,proto3" json:"rag_tasks,omitempty"`
+	TextInputModes      []string                   `protobuf:"bytes,15,rep,name=text_input_modes,json=textInputModes,proto3" json:"text_input_modes,omitempty"`
+	DecisionTasks       []string                   `protobuf:"bytes,16,rep,name=decision_tasks,json=decisionTasks,proto3" json:"decision_tasks,omitempty"`
+	DecisionStateInputs []string                   `protobuf:"bytes,17,rep,name=decision_state_inputs,json=decisionStateInputs,proto3" json:"decision_state_inputs,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
 }
 
 func (x *DriverMetadata) Reset() {
@@ -217,6 +220,27 @@ func (x *DriverMetadata) GetDataTasks() []string {
 func (x *DriverMetadata) GetRagTasks() []string {
 	if x != nil {
 		return x.RagTasks
+	}
+	return nil
+}
+
+func (x *DriverMetadata) GetTextInputModes() []string {
+	if x != nil {
+		return x.TextInputModes
+	}
+	return nil
+}
+
+func (x *DriverMetadata) GetDecisionTasks() []string {
+	if x != nil {
+		return x.DecisionTasks
+	}
+	return nil
+}
+
+func (x *DriverMetadata) GetDecisionStateInputs() []string {
+	if x != nil {
+		return x.DecisionStateInputs
 	}
 	return nil
 }
@@ -3807,6 +3831,8 @@ type GenerateAudioSpeechRequest struct {
 	Emotion       string                 `protobuf:"bytes,10,opt,name=emotion,proto3" json:"emotion,omitempty"`
 	Style         string                 `protobuf:"bytes,11,opt,name=style,proto3" json:"style,omitempty"`
 	Energy        float32                `protobuf:"fixed32,12,opt,name=energy,proto3" json:"energy,omitempty"`
+	Pipeline      string                 `protobuf:"bytes,13,opt,name=pipeline,proto3" json:"pipeline,omitempty"`
+	Engine        string                 `protobuf:"bytes,14,opt,name=engine,proto3" json:"engine,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3923,6 +3949,20 @@ func (x *GenerateAudioSpeechRequest) GetEnergy() float32 {
 		return x.Energy
 	}
 	return 0
+}
+
+func (x *GenerateAudioSpeechRequest) GetPipeline() string {
+	if x != nil {
+		return x.Pipeline
+	}
+	return ""
+}
+
+func (x *GenerateAudioSpeechRequest) GetEngine() string {
+	if x != nil {
+		return x.Engine
+	}
+	return ""
 }
 
 type GenerateAudioResponse struct {
@@ -6837,6 +6877,150 @@ func (x *ProduceDataResponse) GetKind() string {
 	return ""
 }
 
+type ProduceDecisionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Model         string                 `protobuf:"bytes,1,opt,name=model,proto3" json:"model,omitempty"`
+	Text          string                 `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+	ImagePath     string                 `protobuf:"bytes,3,opt,name=image_path,json=imagePath,proto3" json:"image_path,omitempty"`
+	ImagePaths    []string               `protobuf:"bytes,4,rep,name=image_paths,json=imagePaths,proto3" json:"image_paths,omitempty"`
+	QuestionsFile string                 `protobuf:"bytes,5,opt,name=questions_file,json=questionsFile,proto3" json:"questions_file,omitempty"`
+	UseStdin      bool                   `protobuf:"varint,6,opt,name=use_stdin,json=useStdin,proto3" json:"use_stdin,omitempty"`
+	StateJson     string                 `protobuf:"bytes,7,opt,name=state_json,json=stateJson,proto3" json:"state_json,omitempty"`
+	QuestionsJson string                 `protobuf:"bytes,8,opt,name=questions_json,json=questionsJson,proto3" json:"questions_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ProduceDecisionRequest) Reset() {
+	*x = ProduceDecisionRequest{}
+	mi := &file_driver_proto_msgTypes[71]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProduceDecisionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProduceDecisionRequest) ProtoMessage() {}
+
+func (x *ProduceDecisionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_driver_proto_msgTypes[71]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProduceDecisionRequest.ProtoReflect.Descriptor instead.
+func (*ProduceDecisionRequest) Descriptor() ([]byte, []int) {
+	return file_driver_proto_rawDescGZIP(), []int{71}
+}
+
+func (x *ProduceDecisionRequest) GetModel() string {
+	if x != nil {
+		return x.Model
+	}
+	return ""
+}
+
+func (x *ProduceDecisionRequest) GetText() string {
+	if x != nil {
+		return x.Text
+	}
+	return ""
+}
+
+func (x *ProduceDecisionRequest) GetImagePath() string {
+	if x != nil {
+		return x.ImagePath
+	}
+	return ""
+}
+
+func (x *ProduceDecisionRequest) GetImagePaths() []string {
+	if x != nil {
+		return x.ImagePaths
+	}
+	return nil
+}
+
+func (x *ProduceDecisionRequest) GetQuestionsFile() string {
+	if x != nil {
+		return x.QuestionsFile
+	}
+	return ""
+}
+
+func (x *ProduceDecisionRequest) GetUseStdin() bool {
+	if x != nil {
+		return x.UseStdin
+	}
+	return false
+}
+
+func (x *ProduceDecisionRequest) GetStateJson() string {
+	if x != nil {
+		return x.StateJson
+	}
+	return ""
+}
+
+func (x *ProduceDecisionRequest) GetQuestionsJson() string {
+	if x != nil {
+		return x.QuestionsJson
+	}
+	return ""
+}
+
+type ProduceDecisionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PayloadJson   string                 `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ProduceDecisionResponse) Reset() {
+	*x = ProduceDecisionResponse{}
+	mi := &file_driver_proto_msgTypes[72]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProduceDecisionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProduceDecisionResponse) ProtoMessage() {}
+
+func (x *ProduceDecisionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_driver_proto_msgTypes[72]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProduceDecisionResponse.ProtoReflect.Descriptor instead.
+func (*ProduceDecisionResponse) Descriptor() ([]byte, []int) {
+	return file_driver_proto_rawDescGZIP(), []int{72}
+}
+
+func (x *ProduceDecisionResponse) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
 type RAGRequestMsg struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	Task            string                 `protobuf:"bytes,1,opt,name=task,proto3" json:"task,omitempty"`
@@ -6882,7 +7066,7 @@ type RAGRequestMsg struct {
 
 func (x *RAGRequestMsg) Reset() {
 	*x = RAGRequestMsg{}
-	mi := &file_driver_proto_msgTypes[71]
+	mi := &file_driver_proto_msgTypes[73]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6894,7 +7078,7 @@ func (x *RAGRequestMsg) String() string {
 func (*RAGRequestMsg) ProtoMessage() {}
 
 func (x *RAGRequestMsg) ProtoReflect() protoreflect.Message {
-	mi := &file_driver_proto_msgTypes[71]
+	mi := &file_driver_proto_msgTypes[73]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6907,7 +7091,7 @@ func (x *RAGRequestMsg) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RAGRequestMsg.ProtoReflect.Descriptor instead.
 func (*RAGRequestMsg) Descriptor() ([]byte, []int) {
-	return file_driver_proto_rawDescGZIP(), []int{71}
+	return file_driver_proto_rawDescGZIP(), []int{73}
 }
 
 func (x *RAGRequestMsg) GetTask() string {
@@ -7180,7 +7364,7 @@ type RAGResponseMsg struct {
 
 func (x *RAGResponseMsg) Reset() {
 	*x = RAGResponseMsg{}
-	mi := &file_driver_proto_msgTypes[72]
+	mi := &file_driver_proto_msgTypes[74]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7192,7 +7376,7 @@ func (x *RAGResponseMsg) String() string {
 func (*RAGResponseMsg) ProtoMessage() {}
 
 func (x *RAGResponseMsg) ProtoReflect() protoreflect.Message {
-	mi := &file_driver_proto_msgTypes[72]
+	mi := &file_driver_proto_msgTypes[74]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7205,7 +7389,7 @@ func (x *RAGResponseMsg) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RAGResponseMsg.ProtoReflect.Descriptor instead.
 func (*RAGResponseMsg) Descriptor() ([]byte, []int) {
-	return file_driver_proto_rawDescGZIP(), []int{72}
+	return file_driver_proto_rawDescGZIP(), []int{74}
 }
 
 func (x *RAGResponseMsg) GetPayload() []byte {
@@ -7239,7 +7423,7 @@ const file_driver_proto_rawDesc = "" +
 	"\n" +
 	"capability\x18\x01 \x01(\tR\n" +
 	"capability\x12\x18\n" +
-	"\aformats\x18\x02 \x03(\tR\aformats\"\xe1\x03\n" +
+	"\aformats\x18\x02 \x03(\tR\aformats\"\xe6\x04\n" +
 	"\x0eDriverMetadata\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
@@ -7261,7 +7445,10 @@ const file_driver_proto_rawDesc = "" +
 	"mesh_tasks\x18\f \x03(\tR\tmeshTasks\x12\x1d\n" +
 	"\n" +
 	"data_tasks\x18\r \x03(\tR\tdataTasks\x12\x1b\n" +
-	"\trag_tasks\x18\x0e \x03(\tR\bragTasks\"b\n" +
+	"\trag_tasks\x18\x0e \x03(\tR\bragTasks\x12(\n" +
+	"\x10text_input_modes\x18\x0f \x03(\tR\x0etextInputModes\x12%\n" +
+	"\x0edecision_tasks\x18\x10 \x03(\tR\rdecisionTasks\x122\n" +
+	"\x15decision_state_inputs\x18\x11 \x03(\tR\x13decisionStateInputs\"b\n" +
 	"\x0fRegisterRequest\x123\n" +
 	"\bmetadata\x18\x01 \x01(\v2\x17.wuji.v1.DriverMetadataR\bmetadata\x12\x1a\n" +
 	"\bendpoint\x18\x02 \x01(\tR\bendpoint\"F\n" +
@@ -7655,7 +7842,7 @@ const file_driver_proto_rawDesc = "" +
 	"sampleRate\x12\x17\n" +
 	"\x04seed\x18\n" +
 	" \x01(\x05H\x00R\x04seed\x88\x01\x01B\a\n" +
-	"\x05_seed\"\xcf\x02\n" +
+	"\x05_seed\"\x83\x03\n" +
 	"\x1aGenerateAudioSpeechRequest\x12\x16\n" +
 	"\x06prompt\x18\x01 \x01(\tR\x06prompt\x12\x1a\n" +
 	"\bduration\x18\x02 \x01(\x02R\bduration\x12\x14\n" +
@@ -7670,7 +7857,9 @@ const file_driver_proto_rawDesc = "" +
 	"\aemotion\x18\n" +
 	" \x01(\tR\aemotion\x12\x14\n" +
 	"\x05style\x18\v \x01(\tR\x05style\x12\x16\n" +
-	"\x06energy\x18\f \x01(\x02R\x06energyB\a\n" +
+	"\x06energy\x18\f \x01(\x02R\x06energy\x12\x1a\n" +
+	"\bpipeline\x18\r \x01(\tR\bpipeline\x12\x16\n" +
+	"\x06engine\x18\x0e \x01(\tR\x06engineB\a\n" +
 	"\x05_seed\"\x80\x01\n" +
 	"\x15GenerateAudioResponse\x12\x12\n" +
 	"\x04path\x18\x01 \x01(\tR\x04path\x12\x1a\n" +
@@ -7981,7 +8170,21 @@ const file_driver_proto_rawDesc = "" +
 	"\x13ProduceDataResponse\x12\x18\n" +
 	"\apayload\x18\x01 \x01(\fR\apayload\x12%\n" +
 	"\x0epayload_format\x18\x02 \x01(\tR\rpayloadFormat\x12\x12\n" +
-	"\x04kind\x18\x03 \x01(\tR\x04kind\"\xa1\n" +
+	"\x04kind\x18\x03 \x01(\tR\x04kind\"\x8c\x02\n" +
+	"\x16ProduceDecisionRequest\x12\x14\n" +
+	"\x05model\x18\x01 \x01(\tR\x05model\x12\x12\n" +
+	"\x04text\x18\x02 \x01(\tR\x04text\x12\x1d\n" +
+	"\n" +
+	"image_path\x18\x03 \x01(\tR\timagePath\x12\x1f\n" +
+	"\vimage_paths\x18\x04 \x03(\tR\n" +
+	"imagePaths\x12%\n" +
+	"\x0equestions_file\x18\x05 \x01(\tR\rquestionsFile\x12\x1b\n" +
+	"\tuse_stdin\x18\x06 \x01(\bR\buseStdin\x12\x1d\n" +
+	"\n" +
+	"state_json\x18\a \x01(\tR\tstateJson\x12%\n" +
+	"\x0equestions_json\x18\b \x01(\tR\rquestionsJson\"<\n" +
+	"\x17ProduceDecisionResponse\x12!\n" +
+	"\fpayload_json\x18\x01 \x01(\tR\vpayloadJson\"\xa1\n" +
 	"\n" +
 	"\rRAGRequestMsg\x12\x12\n" +
 	"\x04task\x18\x01 \x01(\tR\x04task\x12\x1d\n" +
@@ -8050,7 +8253,7 @@ const file_driver_proto_rawDesc = "" +
 	"\bRegister\x12\x18.wuji.v1.RegisterRequest\x1a\x19.wuji.v1.RegisterResponse\x12B\n" +
 	"\tHeartbeat\x12\x19.wuji.v1.HeartbeatRequest\x1a\x1a.wuji.v1.HeartbeatResponse\x12E\n" +
 	"\n" +
-	"Unregister\x12\x1a.wuji.v1.UnregisterRequest\x1a\x1b.wuji.v1.UnregisterResponse2\xa6\x18\n" +
+	"Unregister\x12\x1a.wuji.v1.UnregisterRequest\x1a\x1b.wuji.v1.UnregisterResponse2\xfc\x18\n" +
 	"\rDriverService\x12<\n" +
 	"\aGetInfo\x12\x17.wuji.v1.GetInfoRequest\x1a\x18.wuji.v1.GetInfoResponse\x12K\n" +
 	"\fGenerateText\x12\x1c.wuji.v1.GenerateTextRequest\x1a\x1d.wuji.v1.GenerateTextResponse\x12N\n" +
@@ -8094,7 +8297,8 @@ const file_driver_proto_rawDesc = "" +
 	"\rIngestDataset\x12\x1d.wuji.v1.IngestDatasetRequest\x1a\x1e.wuji.v1.IngestDatasetResponse\x12]\n" +
 	"\x14CreateDatasetVersion\x12$.wuji.v1.CreateDatasetVersionRequest\x1a\x1f.wuji.v1.DatasetVersionResponse\x12`\n" +
 	"\x13ListDatasetVersions\x12#.wuji.v1.ListDatasetVersionsRequest\x1a$.wuji.v1.ListDatasetVersionsResponse\x12H\n" +
-	"\vProduceData\x12\x1b.wuji.v1.ProduceDataRequest\x1a\x1c.wuji.v1.ProduceDataResponse\x129\n" +
+	"\vProduceData\x12\x1b.wuji.v1.ProduceDataRequest\x1a\x1c.wuji.v1.ProduceDataResponse\x12T\n" +
+	"\x0fProduceDecision\x12\x1f.wuji.v1.ProduceDecisionRequest\x1a .wuji.v1.ProduceDecisionResponse\x129\n" +
 	"\x06RunRAG\x12\x16.wuji.v1.RAGRequestMsg\x1a\x17.wuji.v1.RAGResponseMsgB3Z1github.com/coditary/wuji-core/api/proto/v1;wujiv1b\x06proto3"
 
 var (
@@ -8109,7 +8313,7 @@ func file_driver_proto_rawDescGZIP() []byte {
 	return file_driver_proto_rawDescData
 }
 
-var file_driver_proto_msgTypes = make([]protoimpl.MessageInfo, 75)
+var file_driver_proto_msgTypes = make([]protoimpl.MessageInfo, 77)
 var file_driver_proto_goTypes = []any{
 	(*CapabilityFormatSupport)(nil),     // 0: wuji.v1.CapabilityFormatSupport
 	(*DriverMetadata)(nil),              // 1: wuji.v1.DriverMetadata
@@ -8182,11 +8386,13 @@ var file_driver_proto_goTypes = []any{
 	(*ListDatasetVersionsResponse)(nil), // 68: wuji.v1.ListDatasetVersionsResponse
 	(*ProduceDataRequest)(nil),          // 69: wuji.v1.ProduceDataRequest
 	(*ProduceDataResponse)(nil),         // 70: wuji.v1.ProduceDataResponse
-	(*RAGRequestMsg)(nil),               // 71: wuji.v1.RAGRequestMsg
-	(*RAGResponseMsg)(nil),              // 72: wuji.v1.RAGResponseMsg
-	nil,                                 // 73: wuji.v1.RAGRequestMsg.FilterEntry
-	nil,                                 // 74: wuji.v1.RAGRequestMsg.IndexMetadataEntry
-	(*TextStreamChunk)(nil),             // 75: wuji.v1.TextStreamChunk
+	(*ProduceDecisionRequest)(nil),      // 71: wuji.v1.ProduceDecisionRequest
+	(*ProduceDecisionResponse)(nil),     // 72: wuji.v1.ProduceDecisionResponse
+	(*RAGRequestMsg)(nil),               // 73: wuji.v1.RAGRequestMsg
+	(*RAGResponseMsg)(nil),              // 74: wuji.v1.RAGResponseMsg
+	nil,                                 // 75: wuji.v1.RAGRequestMsg.FilterEntry
+	nil,                                 // 76: wuji.v1.RAGRequestMsg.IndexMetadataEntry
+	(*TextStreamChunk)(nil),             // 77: wuji.v1.TextStreamChunk
 }
 var file_driver_proto_depIdxs = []int32{
 	0,  // 0: wuji.v1.DriverMetadata.format_support:type_name -> wuji.v1.CapabilityFormatSupport
@@ -8222,8 +8428,8 @@ var file_driver_proto_depIdxs = []int32{
 	56, // 30: wuji.v1.DatasetMutationResponse.dataset:type_name -> wuji.v1.DatasetEntry
 	57, // 31: wuji.v1.DatasetVersionResponse.version:type_name -> wuji.v1.DatasetVersionEntry
 	57, // 32: wuji.v1.ListDatasetVersionsResponse.versions:type_name -> wuji.v1.DatasetVersionEntry
-	73, // 33: wuji.v1.RAGRequestMsg.filter:type_name -> wuji.v1.RAGRequestMsg.FilterEntry
-	74, // 34: wuji.v1.RAGRequestMsg.index_metadata:type_name -> wuji.v1.RAGRequestMsg.IndexMetadataEntry
+	75, // 33: wuji.v1.RAGRequestMsg.filter:type_name -> wuji.v1.RAGRequestMsg.FilterEntry
+	76, // 34: wuji.v1.RAGRequestMsg.index_metadata:type_name -> wuji.v1.RAGRequestMsg.IndexMetadataEntry
 	2,  // 35: wuji.v1.DriverRegistry.Register:input_type -> wuji.v1.RegisterRequest
 	4,  // 36: wuji.v1.DriverRegistry.Heartbeat:input_type -> wuji.v1.HeartbeatRequest
 	6,  // 37: wuji.v1.DriverRegistry.Unregister:input_type -> wuji.v1.UnregisterRequest
@@ -8266,52 +8472,54 @@ var file_driver_proto_depIdxs = []int32{
 	65, // 74: wuji.v1.DriverService.CreateDatasetVersion:input_type -> wuji.v1.CreateDatasetVersionRequest
 	67, // 75: wuji.v1.DriverService.ListDatasetVersions:input_type -> wuji.v1.ListDatasetVersionsRequest
 	69, // 76: wuji.v1.DriverService.ProduceData:input_type -> wuji.v1.ProduceDataRequest
-	71, // 77: wuji.v1.DriverService.RunRAG:input_type -> wuji.v1.RAGRequestMsg
-	3,  // 78: wuji.v1.DriverRegistry.Register:output_type -> wuji.v1.RegisterResponse
-	5,  // 79: wuji.v1.DriverRegistry.Heartbeat:output_type -> wuji.v1.HeartbeatResponse
-	7,  // 80: wuji.v1.DriverRegistry.Unregister:output_type -> wuji.v1.UnregisterResponse
-	9,  // 81: wuji.v1.DriverService.GetInfo:output_type -> wuji.v1.GetInfoResponse
-	15, // 82: wuji.v1.DriverService.GenerateText:output_type -> wuji.v1.GenerateTextResponse
-	75, // 83: wuji.v1.DriverService.GenerateTextStream:output_type -> wuji.v1.TextStreamChunk
-	27, // 84: wuji.v1.DriverService.GenerateImage:output_type -> wuji.v1.GenerateImageResponse
-	27, // 85: wuji.v1.DriverService.ImageToImage:output_type -> wuji.v1.GenerateImageResponse
-	27, // 86: wuji.v1.DriverService.InpaintImage:output_type -> wuji.v1.GenerateImageResponse
-	27, // 87: wuji.v1.DriverService.UpscaleImage:output_type -> wuji.v1.GenerateImageResponse
-	27, // 88: wuji.v1.DriverService.EditImage:output_type -> wuji.v1.GenerateImageResponse
-	27, // 89: wuji.v1.DriverService.ControlNetImage:output_type -> wuji.v1.GenerateImageResponse
-	27, // 90: wuji.v1.DriverService.DepthToImage:output_type -> wuji.v1.GenerateImageResponse
-	27, // 91: wuji.v1.DriverService.ImageVariation:output_type -> wuji.v1.GenerateImageResponse
-	27, // 92: wuji.v1.DriverService.StyleTransferImage:output_type -> wuji.v1.GenerateImageResponse
-	27, // 93: wuji.v1.DriverService.SpriteImage:output_type -> wuji.v1.GenerateImageResponse
-	32, // 94: wuji.v1.DriverService.GenerateVideo:output_type -> wuji.v1.GenerateVideoResponse
-	32, // 95: wuji.v1.DriverService.ImageToVideo:output_type -> wuji.v1.GenerateVideoResponse
-	32, // 96: wuji.v1.DriverService.InterpolateVideo:output_type -> wuji.v1.GenerateVideoResponse
-	32, // 97: wuji.v1.DriverService.UpscaleVideo:output_type -> wuji.v1.GenerateVideoResponse
-	37, // 98: wuji.v1.DriverService.GenerateMusic:output_type -> wuji.v1.GenerateAudioResponse
-	37, // 99: wuji.v1.DriverService.MelodyToMusic:output_type -> wuji.v1.GenerateAudioResponse
-	37, // 100: wuji.v1.DriverService.GenerateSFX:output_type -> wuji.v1.GenerateAudioResponse
-	37, // 101: wuji.v1.DriverService.GenerateAudioSpeech:output_type -> wuji.v1.GenerateAudioResponse
-	39, // 102: wuji.v1.DriverService.GenerateMesh:output_type -> wuji.v1.GenerateMeshResponse
-	41, // 103: wuji.v1.DriverService.Video2Audio:output_type -> wuji.v1.Video2AudioResponse
-	44, // 104: wuji.v1.DriverService.CreateVoice:output_type -> wuji.v1.CloneVoiceResponse
-	44, // 105: wuji.v1.DriverService.ConvertVoice:output_type -> wuji.v1.CloneVoiceResponse
-	48, // 106: wuji.v1.DriverService.ListVoiceProfiles:output_type -> wuji.v1.ListVoiceProfilesResponse
-	55, // 107: wuji.v1.DriverService.TrainText:output_type -> wuji.v1.TrainResponse
-	55, // 108: wuji.v1.DriverService.TrainImage:output_type -> wuji.v1.TrainResponse
-	55, // 109: wuji.v1.DriverService.TrainVideo:output_type -> wuji.v1.TrainResponse
-	55, // 110: wuji.v1.DriverService.TrainAudio:output_type -> wuji.v1.TrainResponse
-	55, // 111: wuji.v1.DriverService.TrainMesh:output_type -> wuji.v1.TrainResponse
-	55, // 112: wuji.v1.DriverService.TrainVoice:output_type -> wuji.v1.TrainResponse
-	59, // 113: wuji.v1.DriverService.ListDatasets:output_type -> wuji.v1.ListDatasetsResponse
-	62, // 114: wuji.v1.DriverService.CreateDataset:output_type -> wuji.v1.DatasetMutationResponse
-	62, // 115: wuji.v1.DriverService.DeleteDataset:output_type -> wuji.v1.DatasetMutationResponse
-	64, // 116: wuji.v1.DriverService.IngestDataset:output_type -> wuji.v1.IngestDatasetResponse
-	66, // 117: wuji.v1.DriverService.CreateDatasetVersion:output_type -> wuji.v1.DatasetVersionResponse
-	68, // 118: wuji.v1.DriverService.ListDatasetVersions:output_type -> wuji.v1.ListDatasetVersionsResponse
-	70, // 119: wuji.v1.DriverService.ProduceData:output_type -> wuji.v1.ProduceDataResponse
-	72, // 120: wuji.v1.DriverService.RunRAG:output_type -> wuji.v1.RAGResponseMsg
-	78, // [78:121] is the sub-list for method output_type
-	35, // [35:78] is the sub-list for method input_type
+	71, // 77: wuji.v1.DriverService.ProduceDecision:input_type -> wuji.v1.ProduceDecisionRequest
+	73, // 78: wuji.v1.DriverService.RunRAG:input_type -> wuji.v1.RAGRequestMsg
+	3,  // 79: wuji.v1.DriverRegistry.Register:output_type -> wuji.v1.RegisterResponse
+	5,  // 80: wuji.v1.DriverRegistry.Heartbeat:output_type -> wuji.v1.HeartbeatResponse
+	7,  // 81: wuji.v1.DriverRegistry.Unregister:output_type -> wuji.v1.UnregisterResponse
+	9,  // 82: wuji.v1.DriverService.GetInfo:output_type -> wuji.v1.GetInfoResponse
+	15, // 83: wuji.v1.DriverService.GenerateText:output_type -> wuji.v1.GenerateTextResponse
+	77, // 84: wuji.v1.DriverService.GenerateTextStream:output_type -> wuji.v1.TextStreamChunk
+	27, // 85: wuji.v1.DriverService.GenerateImage:output_type -> wuji.v1.GenerateImageResponse
+	27, // 86: wuji.v1.DriverService.ImageToImage:output_type -> wuji.v1.GenerateImageResponse
+	27, // 87: wuji.v1.DriverService.InpaintImage:output_type -> wuji.v1.GenerateImageResponse
+	27, // 88: wuji.v1.DriverService.UpscaleImage:output_type -> wuji.v1.GenerateImageResponse
+	27, // 89: wuji.v1.DriverService.EditImage:output_type -> wuji.v1.GenerateImageResponse
+	27, // 90: wuji.v1.DriverService.ControlNetImage:output_type -> wuji.v1.GenerateImageResponse
+	27, // 91: wuji.v1.DriverService.DepthToImage:output_type -> wuji.v1.GenerateImageResponse
+	27, // 92: wuji.v1.DriverService.ImageVariation:output_type -> wuji.v1.GenerateImageResponse
+	27, // 93: wuji.v1.DriverService.StyleTransferImage:output_type -> wuji.v1.GenerateImageResponse
+	27, // 94: wuji.v1.DriverService.SpriteImage:output_type -> wuji.v1.GenerateImageResponse
+	32, // 95: wuji.v1.DriverService.GenerateVideo:output_type -> wuji.v1.GenerateVideoResponse
+	32, // 96: wuji.v1.DriverService.ImageToVideo:output_type -> wuji.v1.GenerateVideoResponse
+	32, // 97: wuji.v1.DriverService.InterpolateVideo:output_type -> wuji.v1.GenerateVideoResponse
+	32, // 98: wuji.v1.DriverService.UpscaleVideo:output_type -> wuji.v1.GenerateVideoResponse
+	37, // 99: wuji.v1.DriverService.GenerateMusic:output_type -> wuji.v1.GenerateAudioResponse
+	37, // 100: wuji.v1.DriverService.MelodyToMusic:output_type -> wuji.v1.GenerateAudioResponse
+	37, // 101: wuji.v1.DriverService.GenerateSFX:output_type -> wuji.v1.GenerateAudioResponse
+	37, // 102: wuji.v1.DriverService.GenerateAudioSpeech:output_type -> wuji.v1.GenerateAudioResponse
+	39, // 103: wuji.v1.DriverService.GenerateMesh:output_type -> wuji.v1.GenerateMeshResponse
+	41, // 104: wuji.v1.DriverService.Video2Audio:output_type -> wuji.v1.Video2AudioResponse
+	44, // 105: wuji.v1.DriverService.CreateVoice:output_type -> wuji.v1.CloneVoiceResponse
+	44, // 106: wuji.v1.DriverService.ConvertVoice:output_type -> wuji.v1.CloneVoiceResponse
+	48, // 107: wuji.v1.DriverService.ListVoiceProfiles:output_type -> wuji.v1.ListVoiceProfilesResponse
+	55, // 108: wuji.v1.DriverService.TrainText:output_type -> wuji.v1.TrainResponse
+	55, // 109: wuji.v1.DriverService.TrainImage:output_type -> wuji.v1.TrainResponse
+	55, // 110: wuji.v1.DriverService.TrainVideo:output_type -> wuji.v1.TrainResponse
+	55, // 111: wuji.v1.DriverService.TrainAudio:output_type -> wuji.v1.TrainResponse
+	55, // 112: wuji.v1.DriverService.TrainMesh:output_type -> wuji.v1.TrainResponse
+	55, // 113: wuji.v1.DriverService.TrainVoice:output_type -> wuji.v1.TrainResponse
+	59, // 114: wuji.v1.DriverService.ListDatasets:output_type -> wuji.v1.ListDatasetsResponse
+	62, // 115: wuji.v1.DriverService.CreateDataset:output_type -> wuji.v1.DatasetMutationResponse
+	62, // 116: wuji.v1.DriverService.DeleteDataset:output_type -> wuji.v1.DatasetMutationResponse
+	64, // 117: wuji.v1.DriverService.IngestDataset:output_type -> wuji.v1.IngestDatasetResponse
+	66, // 118: wuji.v1.DriverService.CreateDatasetVersion:output_type -> wuji.v1.DatasetVersionResponse
+	68, // 119: wuji.v1.DriverService.ListDatasetVersions:output_type -> wuji.v1.ListDatasetVersionsResponse
+	70, // 120: wuji.v1.DriverService.ProduceData:output_type -> wuji.v1.ProduceDataResponse
+	72, // 121: wuji.v1.DriverService.ProduceDecision:output_type -> wuji.v1.ProduceDecisionResponse
+	74, // 122: wuji.v1.DriverService.RunRAG:output_type -> wuji.v1.RAGResponseMsg
+	79, // [79:123] is the sub-list for method output_type
+	35, // [35:79] is the sub-list for method input_type
 	35, // [35:35] is the sub-list for extension type_name
 	35, // [35:35] is the sub-list for extension extendee
 	0,  // [0:35] is the sub-list for field type_name
@@ -8346,7 +8554,7 @@ func file_driver_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_driver_proto_rawDesc), len(file_driver_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   75,
+			NumMessages:   77,
 			NumExtensions: 0,
 			NumServices:   2,
 		},

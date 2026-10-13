@@ -153,6 +153,19 @@ func (s *CoreService) dispatch(ctx context.Context, method string, payload []byt
 			return nil, err
 		}
 		return json.Marshal(map[string]any{"shape": json.RawMessage(raw)})
+	case "ProduceDecision":
+		var body struct {
+			DriverID string                `json:"driver_id"`
+			Request  driver.DecisionRequest `json:"request"`
+		}
+		if err := json.Unmarshal(payload, &body); err != nil {
+			return nil, err
+		}
+		resp, err := s.core.ProduceDecision(ctx, body.DriverID, body.Request)
+		if err != nil {
+			return nil, err
+		}
+		return json.Marshal(resp)
 	case "ConnectRemote":
 		var body struct {
 			Endpoint string `json:"endpoint"`
@@ -162,6 +175,17 @@ func (s *CoreService) dispatch(ctx context.Context, method string, payload []byt
 			return nil, err
 		}
 		if err := s.core.ConnectRemote(ctx, body.Endpoint, body.Persist); err != nil {
+			return nil, err
+		}
+		return []byte("{}"), nil
+	case "EnsureDriver":
+		var body struct {
+			DriverID string `json:"driver_id"`
+		}
+		if err := json.Unmarshal(payload, &body); err != nil {
+			return nil, err
+		}
+		if err := s.core.EnsureDriver(ctx, body.DriverID); err != nil {
 			return nil, err
 		}
 		return []byte("{}"), nil

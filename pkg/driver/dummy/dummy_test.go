@@ -21,6 +21,7 @@ func TestDummyDriverCapabilities(t *testing.T) {
 		capability.Video2Audio, capability.VoiceCloning, capability.Training, capability.DatasetMgmt,
 		capability.Data,
 		capability.RAG,
+		capability.Decision,
 	}
 
 	if len(caps) != len(expected) {

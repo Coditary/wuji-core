@@ -23,6 +23,7 @@ const (
 	DatasetMgmt     Type = "dataset"
 	Data            Type = "data"
 	RAG             Type = "rag"
+	Decision        Type = "decision"
 )
 
 // All returns every known capability type.
@@ -42,6 +43,7 @@ func All() []Type {
 		DatasetMgmt,
 		Data,
 		RAG,
+		Decision,
 	}
 }
 

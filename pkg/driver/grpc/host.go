@@ -35,7 +35,7 @@ func NewHost(drv driver.Driver) *Host {
 }
 
 func (s *Host) GetInfo(_ context.Context, _ *wujiv1.GetInfoRequest) (*wujiv1.GetInfoResponse, error) {
-	info := s.drv.Info()
+	info := s.drv.Info().WithTextInputModes(s.drv)
 	caps := make([]string, 0, len(info.Capabilities))
 	for _, c := range info.Capabilities {
 		caps = append(caps, c.String())
@@ -51,8 +51,10 @@ func (s *Host) GetInfo(_ context.Context, _ *wujiv1.GetInfoRequest) (*wujiv1.Get
 			AudioTasks:    driver.AudioTasksToProto(info.AudioTasks),
 			VoiceTasks:    driver.VoiceTasksToProto(info.VoiceTasks),
 			MeshTasks:     driver.MeshTasksToProto(info.MeshTasks),
-			DataTasks:     driver.DataTasksToProto(info.DataTasks),
-			RagTasks:      driver.RAGTasksToProto(info.RAGTasks),
+			DataTasks:            driver.DataTasksToProto(info.DataTasks),
+			RagTasks:             driver.RAGTasksToProto(info.RAGTasks),
+			DecisionTasks:        driver.DecisionTasksToProto(info.DecisionTasks),
+			DecisionStateInputs:  append([]string(nil), info.DecisionStateInputs...),
 		},
 	}, nil
 }
@@ -229,8 +231,10 @@ func registerWithCore(drv driver.Driver, coreAddr, endpoint string) error {
 			AudioTasks:    driver.AudioTasksToProto(info.AudioTasks),
 			VoiceTasks:    driver.VoiceTasksToProto(info.VoiceTasks),
 			MeshTasks:     driver.MeshTasksToProto(info.MeshTasks),
-			DataTasks:     driver.DataTasksToProto(info.DataTasks),
-			RagTasks:      driver.RAGTasksToProto(info.RAGTasks),
+			DataTasks:           driver.DataTasksToProto(info.DataTasks),
+			RagTasks:            driver.RAGTasksToProto(info.RAGTasks),
+			DecisionTasks:       driver.DecisionTasksToProto(info.DecisionTasks),
+			DecisionStateInputs: append([]string(nil), info.DecisionStateInputs...),
 		},
 		Endpoint: endpoint,
 	})

@@ -38,8 +38,9 @@ type DriversConfig struct {
 	A1111     *A1111Config     `yaml:"a1111,omitempty"`
 	LocalRAG  *LocalRAGConfig  `yaml:"local_rag,omitempty"`
 	RAG       *LocalRAGConfig  `yaml:"rag,omitempty"` // deprecated alias
-	Raggo     *RaggoConfig     `yaml:"raggo,omitempty"`
-	Gorag     *GoragConfig     `yaml:"gorag,omitempty"`
+	Raggo    *RaggoConfig                `yaml:"raggo,omitempty"`
+	Gorag    *GoragConfig                `yaml:"gorag,omitempty"`
+	Registry map[string]DriverSection    `yaml:"-"`
 }
 
 type driversEndpointsConfig struct {
@@ -123,6 +124,10 @@ func Load() (*Config, error) {
 			return nil, fmt.Errorf("migrate %s into %s: %w", driversFileName, configFileName, err)
 		}
 		_ = os.Remove(driversPath)
+	}
+
+	if err := mergeReqpackDriverOverlay(cfg); err != nil {
+		return nil, err
 	}
 
 	return cfg, nil

@@ -42,7 +42,7 @@ func Connect(ctx context.Context, endpoint string) (*RemoteDriver, error) {
 		caps = append(caps, capability.Type(c))
 	}
 
-	return &RemoteDriver{
+	rd := &RemoteDriver{
 		info: driver.Info{
 			ID:            meta.GetId(),
 			Name:          meta.GetName(),
@@ -55,15 +55,19 @@ func Connect(ctx context.Context, endpoint string) (*RemoteDriver, error) {
 			AudioTasks:    driver.AudioTasksFromProto(meta.GetAudioTasks()),
 			VoiceTasks:    driver.VoiceTasksFromProto(meta.GetVoiceTasks()),
 			MeshTasks:     driver.MeshTasksFromProto(meta.GetMeshTasks()),
-			DataTasks:     driver.DataTasksFromProto(meta.GetDataTasks()),
-			RAGTasks:      driver.RAGTasksFromProto(meta.GetRagTasks()),
+			DataTasks:           driver.DataTasksFromProto(meta.GetDataTasks()),
+			RAGTasks:            driver.RAGTasksFromProto(meta.GetRagTasks()),
+			DecisionTasks:       driver.DecisionTasksFromProto(meta.GetDecisionTasks()),
+			DecisionStateInputs: append([]string(nil), meta.GetDecisionStateInputs()...),
 			FormatSupport: driver.CapabilityFormatsFromProto(meta.GetFormatSupport()),
 			Remote:        true,
 			Endpoint:      endpoint,
 		},
 		client: client,
 		conn:   conn,
-	}, nil
+	}
+	rd.info = rd.info.WithTextInputModes(rd)
+	return rd, nil
 }
 
 func (d *RemoteDriver) Info() driver.Info               { return d.info }
@@ -139,9 +143,28 @@ func (d *RemoteDriver) GenerateMesh(ctx context.Context, req driver.MeshRequest)
 	return driver.MeshResponseFromProto(resp), nil
 }
 
+func (d *RemoteDriver) ImageToText(ctx context.Context, req driver.TextRequest) (*driver.TextResponse, error) {
+	return d.GenerateText(ctx, req)
+}
+
+func (d *RemoteDriver) VideoToText(ctx context.Context, req driver.TextRequest) (*driver.TextResponse, error) {
+	return d.GenerateText(ctx, req)
+}
+
+func (d *RemoteDriver) DocumentToText(ctx context.Context, req driver.TextRequest) (*driver.TextResponse, error) {
+	return d.GenerateText(ctx, req)
+}
+
 func (d *RemoteDriver) AudioToText(ctx context.Context, req driver.TextRequest) (*driver.TextResponse, error) {
 	return d.GenerateText(ctx, req)
 }
+
+var (
+	_ driver.ImageToTextGenerator    = (*RemoteDriver)(nil)
+	_ driver.VideoToTextGenerator    = (*RemoteDriver)(nil)
+	_ driver.DocumentToTextGenerator = (*RemoteDriver)(nil)
+	_ driver.AudioToTextGenerator    = (*RemoteDriver)(nil)
+)
 
 func (d *RemoteDriver) TrainText(ctx context.Context, req driver.TextTrainRequest) (*driver.TrainResponse, error) {
 	resp, err := d.client.TrainText(ctx, driver.TextTrainRequestToProto(req))

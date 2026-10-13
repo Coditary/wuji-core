@@ -24,6 +24,7 @@ var configurableCapabilities = []capability.Type{
 	capability.DatasetMgmt,
 	capability.Data,
 	capability.RAG,
+	capability.Decision,
 }
 
 // DriverForCapability returns the configured driver for a capability, or "".

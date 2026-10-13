@@ -15,9 +15,12 @@ type Info struct {
 	DatasetTasks  []DatasetTask
 	AudioTasks    []AudioTask
 	VoiceTasks    []VoiceTask
-	DataTasks     []DataTask
-	RAGTasks      []RAGTask
-	FormatSupport CapabilityFormats
+	DataTasks          []DataTask
+	RAGTasks           []RAGTask
+	DecisionTasks      []DecisionTask
+	DecisionStateInputs []string
+	TextInputModes     []TextInputMode
+	FormatSupport   CapabilityFormats
 	Remote        bool
 	Endpoint      string
 }

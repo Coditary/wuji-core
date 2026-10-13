@@ -55,6 +55,8 @@ type AudioSpeechRequest struct {
 	Style      string
 	Energy     float32
 	Seed       *int
+	Pipeline   string
+	Engine     string
 }
 
 func commonAudioFromRequest(r AudioRequest) AudioCommonParams {
@@ -88,5 +90,6 @@ func (r AudioRequest) ToSpeechRequest() AudioSpeechRequest {
 		Prompt: r.Prompt, Model: r.Model, Duration: r.Duration, SampleRate: r.SampleRate,
 		Voice: r.Voice, Language: r.Language, Speed: r.Speed, Pitch: r.Pitch,
 		Emotion: r.Emotion, Style: r.Style, Energy: r.Energy, Seed: r.Seed,
+		Pipeline: r.Pipeline, Engine: r.Engine,
 	}
 }

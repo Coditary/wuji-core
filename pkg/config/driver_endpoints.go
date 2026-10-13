@@ -46,6 +46,11 @@ func (c *Config) ResolvedDriverEndpoints() []string {
 	return out
 }
 
+// ConfiguredDriverIDs returns driver IDs referenced by config (defaults, capabilities, driver sections).
+func (c *Config) ConfiguredDriverIDs() []string {
+	return c.configuredDriverIDs()
+}
+
 func (c *Config) configuredDriverIDs() []string {
 	if c == nil {
 		return nil
@@ -81,6 +86,9 @@ func (c *Config) configuredDriverIDs() []string {
 	}
 	if c.Drivers.Gorag != nil {
 		add("gorag")
+	}
+	for id := range c.Drivers.Registry {
+		add(id)
 	}
 	return ids
 }
